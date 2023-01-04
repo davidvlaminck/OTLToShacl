@@ -1,0 +1,54 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClassShape> a sh:NodeShape ;
+    rdfs:label "All Cases TestClass" ;
+    rdfs:comment "Testclass containing all possible datatypes and combinations" ;
+    sh:property <https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testBooleanFieldShape>,
+                <https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testKeuzelijstShape>,
+                <https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testIntegerFieldShape>;
+    sh:targetClass <https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass> .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testBooleanFieldShape> a sh:PropertyShape ;
+    rdfs:label "Test BooleanField" ;
+    sh:datatype xsd:boolean ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "testBooleanField" ;
+    sh:nodeKind sh:Literal ;
+    sh:path <https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testBooleanField> .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testIntegerFieldShape> a sh:PropertyShape ;
+    rdfs:label "Test IntegerField" ;
+    sh:datatype xsd:integer ;
+    sh:maxCount 1 ;
+    sh:minCount 0 ;
+    sh:name "testIntegerField" ;
+    sh:nodeKind sh:Literal ;
+    sh:in [ rdf:first -55 ;
+            rdf:rest [ rdf:first -54 ] ] ;
+    sh:path <https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testIntegerField> .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testKeuzelijstShape> a sh:PropertyShape ;
+    rdfs:label "Test Keuzelijst" ;
+    sh:datatype <https://wegenenverkeer.data.vlaanderen.be/ns/abstracten#KlTestKeuzelijst> ;
+    sh:maxCount 1 ;
+    sh:minCount 0 ;
+    sh:name "testKeuzelijst" ;
+    sh:nodeKind sh:IRI ;
+    sh:path <https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testKeuzelijst> .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/abstracten#KlTestKeuzelijst> a sh:PropertyShape ;
+    rdfs:label "Test keuzelijst" ;
+    sh:in [ rdf:first <https://wegenenverkeer.data.vlaanderen.be/id/concept/KlTestKeuzelijst/waarde-1> ;
+            rdf:rest [ rdf:first <https://wegenenverkeer.data.vlaanderen.be/id/concept/KlTestKeuzelijst/waarde-2> ;
+                    rdf:rest [ rdf:first <https://wegenenverkeer.data.vlaanderen.be/id/concept/KlTestKeuzelijst/waarde-3> ;
+                            rdf:rest [ rdf:first <https://wegenenverkeer.data.vlaanderen.be/id/concept/KlTestKeuzelijst/waarde-4> ;
+                                    rdf:rest [ rdf:first <https://wegenenverkeer.data.vlaanderen.be/id/concept/KlTestKeuzelijst/waarde-5> ;
+                                            rdf:rest [ rdf:first <https://wegenenverkeer.data.vlaanderen.be/id/concept/KlTestKeuzelijst/waarde-6> ] ] ] ] ] ] ;
+    sh:name "KlTestKeuzelijst" ;
+    sh:nodeKind sh:IRI ;
+    sh:path <https://wegenenverkeer.data.vlaanderen.be/ns/abstracten#KlTestKeuzelijst> .
