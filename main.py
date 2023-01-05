@@ -60,7 +60,7 @@ def process_enum_row(enum_row):
 
             #g.add((enum_node, SH.InConstraintComponent, enum_value))  # TODO ?? Shacl LIST?
 
-    print('finished creating shacl for enum_row[1]')
+    print(f'finished creating shacl for {enum_row[1]}')
 
 
 if __name__ == '__main__':
@@ -114,7 +114,7 @@ if __name__ == '__main__':
         property_node = URIRef(row[6] + 'Shape')
         g.add((URIRef(row[3] + 'Shape'), SH.property, property_node))
         g.add((property_node, RDF.type, SH.PropertyShape))
-        g.add((property_node, SH.datatype, URIRef(row[7])))
+        g.add((property_node, RDFS.comment, URIRef(row[7])))
         g.add((property_node, SH.path, URIRef(row[6])))
         g.add((property_node, SH.name, Literal(row[0])))
         if row[7] == 'http://www.w3.org/2000/01/rdf-schema#Literal' or 'http://www.w3.org/2001/XMLSchema' in row[7]:
@@ -140,18 +140,12 @@ if __name__ == '__main__':
                 LEFT JOIN OSLODatatypeComplexAttributen dtca ON dtc.uri = dtca.class_uri
             ORDER BY dtc.uri;''',
             params={}):
-        property_node_ref = URIRef(row[1])
-        if last_created_prop_ref != property_node_ref:
-            last_created_prop_ref = property_node_ref
-            g.add((property_node_ref, RDF.type, SH.PropertyShape))
-            g.add((property_node_ref, SH.name, Literal(row[0])))
-            g.add((property_node_ref, SH.path, URIRef(row[1])))
-            g.add((property_node_ref, RDFS.label, Literal(row[2])))
-            if row[3] != '':
-                g.add((property_node_ref, OWL.deprecated, Literal(True)))
-
         attribute_node_ref = URIRef(row[9] + 'Shape')
-        g.add((property_node_ref, SH.property, attribute_node_ref))
+
+        subjs = g.subjects(predicate=RDFS.comment, object=URIRef(row[1]))
+        for subj in subjs:
+            g.add((subj, SH.property, attribute_node_ref))
+
         g.add((attribute_node_ref, RDF.type, SH.PropertyShape))
         g.add((attribute_node_ref, SH.name, Literal(row[4])))
         g.add((attribute_node_ref, SH.path, URIRef(row[9])))
@@ -251,8 +245,7 @@ if __name__ == '__main__':
     concurrent.futures.wait(futures)
 
     print(g.serialize(format='turtle'))
-
-
+    g.serialize(format='turtle', destination=Path('otl_shacl.ttl'))
 
     h = Graph()
     start = time.time()

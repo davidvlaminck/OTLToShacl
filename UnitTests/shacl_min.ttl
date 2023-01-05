@@ -1,0 +1,60 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#MinimalClassShape> a sh:NodeShape ;
+    rdfs:comment "minimal test class showing a validation error with a complex type" ;
+    sh:property <https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#MinimalClass.simpleBooleanValueShape> ,
+     <https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#AIMObject.assetIdShape>,
+     <https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#MinimalClass.simpleKeuzelijstValueShape>;
+    sh:targetClass <https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#MinimalClass> .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#MinimalClass.simpleBooleanValueShape> a sh:PropertyShape ;
+    rdfs:label "Simple Boolean Value" ;
+    sh:datatype xsd:boolean ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "simpleBooleanValue" ;
+    sh:nodeKind sh:Literal ;
+    sh:path <https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#MinimalClass.simpleBooleanValue> .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#AIMObject.assetIdShape> a sh:PropertyShape ;
+    rdfs:label "asset-id" ;
+    sh:property <https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtcIdentificator.identificatorShape>,
+                <https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtcIdentificator.toegekendDoorShape>;
+    sh:maxCount 1 ;
+    sh:minCount 0 ;
+    sh:name "assetId" ;
+    sh:nodeKind sh:BlankNode ;
+    sh:path <https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#AIMObject.assetId> .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtcIdentificator.identificatorShape> a sh:PropertyShape ;
+    rdfs:label "identificator" ;
+    sh:datatype xsd:string ;
+    sh:maxCount 1 ;
+    sh:minCount 0 ;
+    sh:name "identificator" ;
+    sh:path <https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtcIdentificator.identificator> .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtcIdentificator.toegekendDoorShape> a sh:PropertyShape ;
+    rdfs:label "toegekend door" ;
+    sh:datatype xsd:string ;
+    sh:maxCount 1 ;
+    sh:minCount 0 ;
+    sh:name "toegekendDoor" ;
+    sh:path <https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtcIdentificator.toegekendDoor> .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#MinimalClass.simpleKeuzelijstValueShape> a sh:PropertyShape ;
+    rdfs:label "Test keuzelijst" ;
+    sh:in ( <https://wegenenverkeer.data.vlaanderen.be/id/concept/KlTestKeuzelijst/waarde-1>
+            <https://wegenenverkeer.data.vlaanderen.be/id/concept/KlTestKeuzelijst/waarde-2>
+            <https://wegenenverkeer.data.vlaanderen.be/id/concept/KlTestKeuzelijst/waarde-3>
+            <https://wegenenverkeer.data.vlaanderen.be/id/concept/KlTestKeuzelijst/waarde-4>
+            <https://wegenenverkeer.data.vlaanderen.be/id/concept/KlTestKeuzelijst/waarde-5>
+            <https://wegenenverkeer.data.vlaanderen.be/id/concept/KlTestKeuzelijst/waarde-6>) ;
+    sh:name "Simple Keuzelijst Value" ;
+    sh:nodeKind sh:IRI ;
+    sh:path <https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#MinimalClass.simpleKeuzelijstValue> .
+

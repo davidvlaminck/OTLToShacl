@@ -28,8 +28,7 @@
     sh:minCount 0 ;
     sh:name "testIntegerField" ;
     sh:nodeKind sh:Literal ;
-    sh:in [ rdf:first -55 ;
-            rdf:rest [ rdf:first -54 ] ] ;
+    sh:in ( -55 -54 ) ;
     sh:path <https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testIntegerField> .
 
 <https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testKeuzelijstShape> a sh:PropertyShape ;
@@ -43,12 +42,12 @@
 
 <https://wegenenverkeer.data.vlaanderen.be/ns/abstracten#KlTestKeuzelijst> a sh:PropertyShape ;
     rdfs:label "Test keuzelijst" ;
-    sh:in [ rdf:first <https://wegenenverkeer.data.vlaanderen.be/id/concept/KlTestKeuzelijst/waarde-1> ;
-            rdf:rest [ rdf:first <https://wegenenverkeer.data.vlaanderen.be/id/concept/KlTestKeuzelijst/waarde-2> ;
-                    rdf:rest [ rdf:first <https://wegenenverkeer.data.vlaanderen.be/id/concept/KlTestKeuzelijst/waarde-3> ;
-                            rdf:rest [ rdf:first <https://wegenenverkeer.data.vlaanderen.be/id/concept/KlTestKeuzelijst/waarde-4> ;
-                                    rdf:rest [ rdf:first <https://wegenenverkeer.data.vlaanderen.be/id/concept/KlTestKeuzelijst/waarde-5> ;
-                                            rdf:rest [ rdf:first <https://wegenenverkeer.data.vlaanderen.be/id/concept/KlTestKeuzelijst/waarde-6> ] ] ] ] ] ] ;
+    sh:in ( <https://wegenenverkeer.data.vlaanderen.be/id/concept/KlTestKeuzelijst/waarde-1>
+            <https://wegenenverkeer.data.vlaanderen.be/id/concept/KlTestKeuzelijst/waarde-2>
+            <https://wegenenverkeer.data.vlaanderen.be/id/concept/KlTestKeuzelijst/waarde-3>
+            <https://wegenenverkeer.data.vlaanderen.be/id/concept/KlTestKeuzelijst/waarde-4>
+            <https://wegenenverkeer.data.vlaanderen.be/id/concept/KlTestKeuzelijst/waarde-5>
+            <https://wegenenverkeer.data.vlaanderen.be/id/concept/KlTestKeuzelijst/waarde-6>) ;
     sh:name "KlTestKeuzelijst" ;
     sh:nodeKind sh:IRI ;
     sh:path <https://wegenenverkeer.data.vlaanderen.be/ns/abstracten#KlTestKeuzelijst> .
