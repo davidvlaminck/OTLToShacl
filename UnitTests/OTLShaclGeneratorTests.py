@@ -71,14 +71,15 @@ class OTLShaclGeneratorTests(TestCase):
                                  Literal(1))
             data_g.add(bad_boolean_graph)
 
+            ont = Graph()
             inheritance_graph1 = (URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#AIMObject'),
                                   RDFS.subClassOf,
                                   URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#AIMDBStatus'))
             inheritance_graph2 = (URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass'),
                                   RDFS.subClassOf,
                                   URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#AIMObject'))
-            data_g.add(inheritance_graph1)
-            data_g.add(inheritance_graph2)
+            ont.add(inheritance_graph1)
+            ont.add(inheritance_graph2)
 
             # https://gist.github.com/ashleysommer/ee6e4ee48f15c4244cbc79963aae82a5
             # https://github.com/RDFLib/pySHACL/issues/148
@@ -88,14 +89,13 @@ class OTLShaclGeneratorTests(TestCase):
 
             r = validate(data_g,
                          shacl_graph=shacl,
+                         ont_graph=ont,
                          allow_infos=True,
                          allow_warnings=True)
             conforms, results_graph, results_text = r
             print(results_text)
             self.assertFalse(conforms)
             data_g.remove(bad_boolean_graph)
-            data_g.remove(inheritance_graph1)
-            data_g.remove(inheritance_graph2)
 
         os.unlink(Path('generated_shacl.ttl'))
 
