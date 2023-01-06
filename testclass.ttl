@@ -9,5 +9,6 @@ asset:0000 a onderdeel:AllCasesTestClass ;
     onderdeel:AllCasesTestClass.testDecimalField 79.07 ;
     onderdeel:AllCasesTestClass.testIntegerField -55 ;
     onderdeel:AllCasesTestClass.testKeuzelijst <https://wegenenverkeer.data.vlaanderen.be/id/concept/KlTestKeuzelijst/waarde-1> ;
-    onderdeel:AllCasesTestClass.testKwantWrd [ imel:KwantWrdTest.waarde 98.21 ] .
+    onderdeel:AllCasesTestClass.testKwantWrd [ imel:KwantWrdTest.standaardEenheid '%';
+                                             imel:KwantWrdTest.waarde 2.5] .
 

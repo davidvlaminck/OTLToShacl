@@ -1,12 +1,13 @@
 import os
+import unittest
 from pathlib import Path
 from unittest import TestCase
 
+from pyshacl import validate
+from rdflib import Graph, URIRef, RDF, RDFS, OWL, Literal, SH, BNode, XSD
+
 from OTLShaclGenerator import OTLShaclGenerator
 from SQLDbReader import SQLDbReader
-
-from rdflib import Graph, Namespace, URIRef, RDF, RDFS, OWL, Literal, SH, BNode, SKOS, XSD
-from pyshacl import validate
 
 
 class OTLShaclGeneratorTests(TestCase):
@@ -14,7 +15,7 @@ class OTLShaclGeneratorTests(TestCase):
         with self.assertRaises(FileNotFoundError):
             OTLShaclGenerator.generate_shacl_from_otl(Path(''), shacl_path=Path(), ont_path=Path())
 
-    def test_generate_subset_and_test_data(self):
+    def generate_data_shacl_ont_asset_for_testclass(self):
         shacl, ont = OTLShaclGenerator.generate_shacl_from_otl(subset_path=Path('OTL_AllCasesTestClass.db'),
                                                                shacl_path=Path('generated_shacl.ttl'),
                                                                ont_path=Path('generated_ont.ttl'))
@@ -23,73 +24,194 @@ class OTLShaclGeneratorTests(TestCase):
         data_g.add((asset_ref, RDF.type,
                     URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass')))
 
-        with self.subTest('using correct boolean value'):
-            good_boolean_graph = (asset_ref,
-                                  URIRef(
-                                      'https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testBooleanField'),
-                                  Literal(True))
-            data_g.add(good_boolean_graph)
-            r = validate(data_g,
-                         shacl_graph=shacl,
-                         allow_infos=True,
-                         allow_warnings=True)
-            conforms, results_graph, results_text = r
-            self.assertTrue(conforms)
-            data_g.remove(good_boolean_graph)
+        return data_g, shacl, ont, asset_ref
 
-        with self.subTest('using incorrect boolean value'):
-            bad_boolean_graph = (asset_ref,
-                                 URIRef(
-                                     'https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testBooleanField'),
-                                 Literal(1))
-            data_g.add(bad_boolean_graph)
-            r = validate(data_g,
-                         shacl_graph=shacl,
-                         allow_infos=True,
-                         allow_warnings=True)
-            conforms, results_graph, results_text = r
-            self.assertFalse(conforms)
-            data_g.remove(bad_boolean_graph)
+    def tearDown(self) -> None:
+        if os.path.exists('generated_shacl.ttl'):
+            os.unlink(Path('generated_shacl.ttl'))
+        if os.path.exists('generated_ont.ttl'):
+            os.unlink(Path('generated_ont.ttl'))
 
-        with self.subTest('using boolean value in inherited attribute'):
-            inherited_boolean_graph = (asset_ref,
-                                       URIRef(
-                                           'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#AIMDBStatus.isActief'),
-                                       Literal(True))
-            data_g.add(inherited_boolean_graph)
-            r = validate(data_g,
-                         shacl_graph=shacl,
-                         allow_infos=True,
-                         allow_warnings=True)
-            conforms, results_graph, results_text = r
-            self.assertTrue(conforms)
-            data_g.remove(inherited_boolean_graph)
+    def test_generate_subset_and_test_data_correct_boolean(self):
+        data_g, shacl, ont, asset_ref = self.generate_data_shacl_ont_asset_for_testclass()
+        data_g.add((asset_ref,
+                    URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testBooleanField'),
+                    Literal(True)))
+        r = validate(data_g,
+                     shacl_graph=shacl,
+                     ont_graph=ont,
+                     allow_infos=True,
+                     allow_warnings=True)
+        conforms, results_graph, results_text = r
+        self.assertTrue(conforms)
 
-        with self.subTest('using incorrect boolean value in inherited attribute'):
-            bad_boolean_graph = (asset_ref,
-                                 URIRef(
-                                     'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#AIMDBStatus.isActief'),
-                                 Literal(1))
-            data_g.add(bad_boolean_graph)
+    def test_generate_subset_and_test_data_incorrect_boolean(self):
+        data_g, shacl, ont, asset_ref = self.generate_data_shacl_ont_asset_for_testclass()
+        data_g.add((asset_ref,
+                    URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testBooleanField'),
+                    Literal(1)))
+        r = validate(data_g,
+                     shacl_graph=shacl,
+                     ont_graph=ont,
+                     allow_infos=True,
+                     allow_warnings=True)
+        conforms, results_graph, results_text = r
+        self.assertFalse(conforms)
 
-            # https://gist.github.com/ashleysommer/ee6e4ee48f15c4244cbc79963aae82a5
-            # https://github.com/RDFLib/pySHACL/issues/148
+    def test_generate_subset_and_test_data_correct_inherited_boolean(self):
+        data_g, shacl, ont, asset_ref = self.generate_data_shacl_ont_asset_for_testclass()
+        data_g.add((asset_ref,
+                    URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#AIMDBStatus.isActief'),
+                    Literal(True)))
+        r = validate(data_g,
+                     shacl_graph=shacl,
+                     ont_graph=ont,
+                     allow_infos=True,
+                     allow_warnings=True)
+        conforms, results_graph, results_text = r
+        self.assertTrue(conforms)
 
-            # for s, p, o in data_g:
-            #     print(f'{s} {p} {o}')
+    def test_generate_subset_and_test_data_incorrect_inherited_boolean(self):
+        data_g, shacl, ont, asset_ref = self.generate_data_shacl_ont_asset_for_testclass()
+        data_g.add((asset_ref,
+                    URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#AIMDBStatus.isActief'),
+                    Literal(1)))
+        r = validate(data_g,
+                     shacl_graph=shacl,
+                     ont_graph=ont,
+                     allow_infos=True,
+                     allow_warnings=True)
+        conforms, results_graph, results_text = r
+        self.assertFalse(conforms)
 
-            r = validate(data_g,
-                         shacl_graph=shacl,
-                         ont_graph=ont,
-                         allow_infos=True,
-                         allow_warnings=True)
-            conforms, results_graph, results_text = r
-            print(results_text)
-            self.assertFalse(conforms)
-            data_g.remove(bad_boolean_graph)
+    def test_generate_subset_and_test_data_correct_decimal(self):
+        data_g, shacl, ont, asset_ref = self.generate_data_shacl_ont_asset_for_testclass()
+        data_g.add((asset_ref,
+                    URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testDecimalField'),
+                    Literal('2.5', datatype=XSD.decimal)))
+        r = validate(data_g,
+                     shacl_graph=shacl,
+                     ont_graph=ont,
+                     allow_infos=True,
+                     allow_warnings=True)
+        conforms, results_graph, results_text = r
+        self.assertTrue(conforms)
 
-        os.unlink(Path('generated_shacl.ttl'))
-        os.unlink(Path('generated_ont.ttl'))
+    def test_generate_subset_and_test_data_correct_enum(self):
+        data_g, shacl, ont, asset_ref = self.generate_data_shacl_ont_asset_for_testclass()
+        data_g.add((asset_ref,
+                    URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testKeuzelijst'),
+                    URIRef('https://wegenenverkeer.data.vlaanderen.be/id/concept/KlTestKeuzelijst/waarde-1')))
+        r = validate(data_g,
+                     shacl_graph=shacl,
+                     ont_graph=ont,
+                     allow_infos=True,
+                     allow_warnings=True)
+        conforms, results_graph, results_text = r
+        self.assertTrue(conforms)
+
+    def test_generate_subset_and_test_data_incorrect_enum(self):
+        data_g, shacl, ont, asset_ref = self.generate_data_shacl_ont_asset_for_testclass()
+        data_g.add((asset_ref,
+                    URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testKeuzelijst'),
+                    URIRef('https://wegenenverkeer.data.vlaanderen.be/id/concept/KlTestKeuzelijst/waarde-7')))
+        r = validate(data_g,
+                     shacl_graph=shacl,
+                     ont_graph=ont,
+                     allow_infos=True,
+                     allow_warnings=True)
+        conforms, results_graph, results_text = r
+        self.assertFalse(conforms)
+
+    def test_generate_subset_and_test_data_correct_kwantWrd(self):
+        data_g, shacl, ont, asset_ref = self.generate_data_shacl_ont_asset_for_testclass()
+        kwant_wrd_ref = BNode()
+        data_g.add((
+            asset_ref,
+            URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testKwantWrd'),
+            kwant_wrd_ref))
+        data_g.add((
+            kwant_wrd_ref,
+            URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#KwantWrdTest.waarde'),
+            Literal('2.5', datatype=XSD.decimal)))
+        data_g.add((
+            kwant_wrd_ref,
+            URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#KwantWrdTest.standaardEenheid'),
+            Literal('%')))
+        r = validate(data_g,
+                     shacl_graph=shacl,
+                     ont_graph=ont,
+                     allow_infos=True,
+                     allow_warnings=True)
+        conforms, results_graph, results_text = r
+        self.assertTrue(conforms)
+
+    def test_generate_subset_and_test_data_incorrect_kwantWrd(self):
+        data_g, shacl, ont, asset_ref = self.generate_data_shacl_ont_asset_for_testclass()
+        kwant_wrd_ref = BNode()
+        data_g.add((
+            asset_ref,
+            URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testKwantWrd'),
+            kwant_wrd_ref))
+        data_g.add((
+            kwant_wrd_ref,
+            URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#KwantWrdTest.waarde'),
+            Literal('2.5')))
+        data_g.add((
+            kwant_wrd_ref,
+            URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#KwantWrdTest.standaardEenheid'),
+            Literal('V')))
+        r = validate(data_g,
+                     shacl_graph=shacl,
+                     ont_graph=ont,
+                     allow_infos=True,
+                     allow_warnings=True)
+        conforms, results_graph, results_text = r
+        self.assertFalse(conforms)
+        self.assertTrue('Results (2)' in results_text)
+
+    def test_generate_subset_and_test_data_correct_union(self):
+        data_g, shacl, ont, asset_ref = self.generate_data_shacl_ont_asset_for_testclass()
+        kwant_wrd_ref = BNode()
+        data_g.add((
+            asset_ref,
+            URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testUnionType'),
+            kwant_wrd_ref))
+        data_g.add((
+            kwant_wrd_ref,
+            URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtuTestUnionType.unionKwantWrd'),
+            BNode()))
+        r = validate(data_g,
+                     shacl_graph=shacl,
+                     ont_graph=ont,
+                     allow_infos=True,
+                     allow_warnings=True)
+        conforms, results_graph, results_text = r
+        self.assertTrue(conforms)
+
+    @unittest.skip('union constraint not yet implemented')
+    def test_generate_subset_and_test_data_incorrect_union(self):
+        data_g, shacl, ont, asset_ref = self.generate_data_shacl_ont_asset_for_testclass()
+        kwant_wrd_ref = BNode()
+        data_g.add((
+            asset_ref,
+            URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testUnionType'),
+            kwant_wrd_ref))
+        data_g.add((
+            kwant_wrd_ref,
+            URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtuTestUnionType.unionKwantWrd'),
+            BNode()))
+        data_g.add((
+            kwant_wrd_ref,
+            URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtuTestUnionType.unionString'),
+            Literal('test')))
+        r = validate(data_g,
+                     shacl_graph=shacl,
+                     ont_graph=ont,
+                     allow_infos=True,
+                     allow_warnings=True)
+        conforms, results_graph, results_text = r
+        self.assertFalse(conforms)
 
     def test_read_classes_from_reader(self):
         reader = SQLDbReader(Path('OTL_AllCasesTestClass.db'))
@@ -406,7 +528,7 @@ class OTLShaclGeneratorTests(TestCase):
 
         self.assertTrue((standaard_eenheid_ref, SH.nodeKind, SH.Literal) in g)
         self.assertTrue((standaard_eenheid_ref, SH.datatype, RDFS.Literal) in g)
-        self.assertTrue((standaard_eenheid_ref, SH.equals, Literal('%')) in g)
+        self.assertTrue((standaard_eenheid_ref, SH.pattern, Literal('%')) in g)
 
         self.assertTrue((waarde_ref, SH.nodeKind, SH.Literal) in g)
         self.assertTrue((waarde_ref, SH.datatype, XSD.decimal) in g)

@@ -184,12 +184,12 @@ imel:AIMToestand.toestandShape a sh:PropertyShape ;
 imel:KwantWrdInMaand.standaardEenheidShape a sh:PropertyShape ;
     rdfs:label "standaard eenheid" ;
     sh:datatype rdfs:Literal ;
-    sh:equals "mo" ;
     sh:maxCount 1 ;
     sh:minCount 0 ;
     sh:name "standaardEenheid" ;
     sh:nodeKind sh:Literal ;
-    sh:path imel:KwantWrdInMaand.standaardEenheid .
+    sh:path imel:KwantWrdInMaand.standaardEenheid ;
+    sh:pattern "mo" .
 
 imel:KwantWrdInMaand.waardeShape a sh:PropertyShape ;
     rdfs:label "waarde" ;
@@ -593,12 +593,12 @@ imel:DtuTestUnionType.unionStringShape a sh:PropertyShape ;
 imel:KwantWrdInVolt.standaardEenheidShape a sh:PropertyShape ;
     rdfs:label "standaard eenheid" ;
     sh:datatype rdfs:Literal ;
-    sh:equals "V" ;
     sh:maxCount 1 ;
     sh:minCount 0 ;
     sh:name "standaardEenheid" ;
     sh:nodeKind sh:Literal ;
-    sh:path imel:KwantWrdInVolt.standaardEenheid .
+    sh:path imel:KwantWrdInVolt.standaardEenheid ;
+    sh:pattern "V" .
 
 imel:KwantWrdInVolt.waardeShape a sh:PropertyShape ;
     rdfs:label "waarde" ;
@@ -630,12 +630,12 @@ imel:DtcIdentificator.toegekendDoorShape a sh:PropertyShape ;
 imel:KwantWrdTest.standaardEenheidShape a sh:PropertyShape ;
     rdfs:label "standaard eenheid" ;
     sh:datatype rdfs:Literal ;
-    sh:equals "%" ;
     sh:maxCount 1 ;
     sh:minCount 0 ;
     sh:name "standaardEenheid" ;
     sh:nodeKind sh:Literal ;
-    sh:path imel:KwantWrdTest.standaardEenheid .
+    sh:path imel:KwantWrdTest.standaardEenheid ;
+    sh:pattern "%" .
 
 imel:KwantWrdTest.waardeShape a sh:PropertyShape ;
     rdfs:label "waarde" ;
