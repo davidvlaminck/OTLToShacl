@@ -276,7 +276,8 @@ class OTLShaclGeneratorTests(TestCase):
                            'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtcTestComplexType', '1',
                            '1',
                            'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtcTestComplexType.testComplexType2',
-                           'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtcTestComplexType2', '', '',
+                           'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtcTestComplexType2', '',
+                           '',
                            'OSLODatatypeComplex')]
 
         g = Graph()
@@ -409,3 +410,58 @@ class OTLShaclGeneratorTests(TestCase):
 
         self.assertTrue((waarde_ref, SH.nodeKind, SH.Literal) in g)
         self.assertTrue((waarde_ref, SH.datatype, XSD.decimal) in g)
+
+    def test_read_union_attributes_from_reader(self):
+        reader = SQLDbReader(Path('OTL_AllCasesTestClass.db'))
+        rows = OTLShaclGenerator.read_union_attributes_from_reader(reader)
+        self.assertEqual(2, len(rows))
+
+    def test_add_union_attributes_to_graph(self):
+        property_rows = [('testUnionType', 'Test UnionType', 'Test attribuut voor een union type',
+                          'https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass', '1', '1',
+                          'https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testUnionType',
+                          'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtuTestUnionType', 0, '',
+                          0, '', '', 'OSLODatatypeUnion')]
+        attribute_rows = [
+            ('DtuTestUnionType', 'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtuTestUnionType',
+             'Test UnionType', '', 'unionKwantWrd', 'Union kwantitatieve waarde',
+             'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtuTestUnionType', '0', '1',
+             'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtuTestUnionType.unionKwantWrd',
+             'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#KwantWrdTest', '', '',
+             'OSLODatatypePrimitive'),
+            ('DtuTestUnionType', 'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtuTestUnionType',
+             'Test UnionType', '', 'unionString', 'Union tekstveld',
+             'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtuTestUnionType', '0', '1',
+             'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtuTestUnionType.unionString',
+             'http://www.w3.org/2001/XMLSchema#string', '', '', 'OSLODatatypePrimitive')]
+
+        g = Graph()
+        g = OTLShaclGenerator.add_properties_to_graph(g, property_rows)
+        g = OTLShaclGenerator.add_union_attributes_to_graph(g, attribute_rows)
+
+        class_ref = URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClassShape')
+
+        union_type_ref = URIRef(
+            'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtuTestUnionType')
+        union_attr_ref = URIRef(
+            'https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testUnionTypeShape')
+
+        union_kwant_ref = URIRef(
+            'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtuTestUnionType.unionKwantWrdShape')
+        union_string_ref = URIRef(
+            'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtuTestUnionType.unionStringShape')
+
+        self.assertTrue((class_ref, SH.property, union_attr_ref) in g)
+        self.assertTrue((union_attr_ref, RDFS.comment, union_type_ref) in g)
+
+        self.assertTrue((union_attr_ref, SH.nodeKind, SH.BlankNode) in g)
+
+        self.assertTrue((union_attr_ref, SH.property, union_kwant_ref) in g)
+        self.assertTrue((union_attr_ref, SH.property, union_string_ref) in g)
+
+        self.assertTrue((union_kwant_ref, SH.nodeKind, SH.BlankNode) in g)
+        self.assertTrue((union_kwant_ref, RDFS.comment, URIRef(
+            'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#KwantWrdTest')) in g)
+
+        self.assertTrue((union_string_ref, SH.nodeKind, SH.Literal) in g)
+        self.assertTrue((union_string_ref, SH.datatype, XSD.string) in g)

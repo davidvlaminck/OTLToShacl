@@ -32,17 +32,21 @@ class OTLShaclGenerator:
         property_rows = OTLShaclGenerator.read_properties_from_reader(reader=reader)
         g = OTLShaclGenerator.add_properties_to_graph(g=g, rows=property_rows)
 
+        # union attributes
+        union_attr_rows = OTLShaclGenerator.read_union_attributes_from_reader(reader=reader)
+        g = OTLShaclGenerator.add_union_attributes_to_graph(g=g, rows=union_attr_rows)
+
         # complex attributes
         complex_attr_rows = OTLShaclGenerator.read_complex_attributes_from_reader(reader=reader)
         g = OTLShaclGenerator.add_complex_attributes_to_graph(g=g, rows=complex_attr_rows)
 
-        # enums
-        enum_rows = OTLShaclGenerator.read_enums_from_reader(reader=reader)
-        g = OTLShaclGenerator.add_enums_to_graph(g=g, rows=enum_rows)
-
         # primitive attributes
         primitive_attr_rows = OTLShaclGenerator.read_primitive_attributes_from_reader(reader=reader)
         g = OTLShaclGenerator.add_primitive_attributes_to_graph(g=g, rows=primitive_attr_rows)
+
+        # enums
+        enum_rows = OTLShaclGenerator.read_enums_from_reader(reader=reader)
+        g = OTLShaclGenerator.add_enums_to_graph(g=g, rows=enum_rows)
 
         g.serialize(format='turtle', destination=shacl_path)
         h.serialize(format='turtle', destination=ont_path)
@@ -60,10 +64,10 @@ class OTLShaclGenerator:
         g.add((URIRef('https://wegenenverkeer.data.vlaanderen.be'), RDF.type, OWL.Ontology))
         g.add((URIRef('https://wegenenverkeer.data.vlaanderen.be'), RDFS.comment, Literal(
             '''Met het programma Open Standaarden voor Linkende Organisaties (OSLO) zet de Vlaamse overheid in op een 
-            éénduidige standaard voor de uitwisseling van informatie. De objecttypenbibliotheek (OTL) specificeert een 
-            implementatiemodel voor de data-uitwisseling gedurende de volledige levenscyclus van onderdelen en installaties 
-            die in brede zin verband houden met wegen en verkeer zoals gespecificeerd in de verschillende 
-            Standaardbestekken 250, 260 en 270.''')))
+            éénduidige standaard voor de uitwisseling van informatie. De objecttypenbibliotheek (OTL) specificeert 
+            een implementatiemodel voor de data-uitwisseling gedurende de volledige levenscyclus van onderdelen en 
+            installaties die in brede zin verband houden met wegen en verkeer zoals gespecificeerd in de 
+            verschillende Standaardbestekken 250, 260 en 270.''')))
         b = BNode()
         g.add((URIRef('https://wegenenverkeer.data.vlaanderen.be'), SH.declare, b))
         g.add((b, SH.prefix, Literal('awv')))  # TODO ??
@@ -164,6 +168,9 @@ class OTLShaclGenerator:
     @staticmethod
     def add_attributes_to_graph(g: Graph, rows: [tuple], attribute_type: str) -> Graph:
         for row in rows:
+            if row[1] == str(RDFS.Literal) or 'http://www.w3.org/2001/XMLSchema' in row[1]:
+                continue
+
             attribute_node_ref = URIRef(row[9] + 'Shape')
 
             g.add((attribute_node_ref, RDF.type, SH.PropertyShape))
@@ -193,6 +200,7 @@ class OTLShaclGenerator:
                         unit = row[12].split('"')[1]
                         g.add((attribute_node_ref, SH.equals, Literal(unit)))
 
+            # TODO add union constraint
 
         # do this after creating the shapes to avoid missing attributes in complex datatypes (nested)
         for row in rows:
@@ -209,7 +217,8 @@ class OTLShaclGenerator:
     @staticmethod
     def get_enum_values_from_graph(keuzelijstnaam):
         g = Graph()
-        keuzelijst_link = f"https://raw.githubusercontent.com/Informatievlaanderen/OSLOthema-wegenenverkeer/master/codelijsten/{keuzelijstnaam}.ttl"
+        keuzelijst_link = f"https://raw.githubusercontent.com/Informatievlaanderen/OSLOthema-wegenenverkeer/master/" \
+                          f"codelijsten/{keuzelijstnaam}.ttl"
 
         if 'KlTestKeuzelijst' in keuzelijstnaam:
             base_dir = os.path.dirname(os.path.realpath(__file__))
@@ -261,34 +270,19 @@ class OTLShaclGenerator:
 
     @staticmethod
     def add_primitive_attributes_to_graph(g: Graph, rows: [tuple]) -> Graph:
-        for row in rows:
-            if row[1] == 'http://www.w3.org/2000/01/rdf-schema#Literal' or 'http://www.w3.org/2001/XMLSchema' in row[1]:
-                continue
+        return OTLShaclGenerator.add_attributes_to_graph(g, rows, 'primitive')
 
-            attribute_node_ref = URIRef(row[9] + 'Shape')
+    @staticmethod
+    def read_union_attributes_from_reader(reader) -> [tuple]:
+        return reader.perform_read_query(
+            '''SELECT dtu.name, dtu.uri, dtu.label_nl, dtu.deprecated_version, dtua.name, dtua.label_nl, dtua.class_uri,
+            dtua.kardinaliteit_min, dtua.kardinaliteit_max, dtua.uri, dtua.type, dtua.deprecated_version,
+            dtua.constraints, TypeLinkTabel.item_tabel  
+            FROM OSLODatatypeUnion dtu 
+                LEFT JOIN OSLODatatypeUnionAttributen dtua ON dtu.uri = dtua.class_uri
+                LEFT JOIN TypeLinkTabel ON dtua."type" = TypeLinkTabel.item_uri
+            ORDER BY dtu.uri;''', params={})
 
-            subjects = g.subjects(predicate=RDFS.comment, object=URIRef(row[1]))
-            for subj in subjects:
-                g.add((subj, SH.property, attribute_node_ref))
-
-            g.add((attribute_node_ref, RDF.type, SH.PropertyShape))
-            g.add((attribute_node_ref, SH.name, Literal(row[4])))
-            g.add((attribute_node_ref, SH.path, URIRef(row[9])))
-            g.add((attribute_node_ref, RDFS.label, Literal(row[5])))
-
-            g.add((attribute_node_ref, SH.nodeKind, SH.Literal))
-            g.add((attribute_node_ref, SH.datatype, URIRef(row[10])))
-
-            if row[11] != '':
-                g.add((attribute_node_ref, OWL.deprecated, Literal(True)))
-            g.add((attribute_node_ref, SH.minCount, Literal(0)))  # can't enforce kardinaliteit_min = 1
-            if row[8] != '*':
-                g.add((attribute_node_ref, SH.maxCount, Literal(int(row[8]))))
-
-            if row[10] == str(RDFS.Literal):
-                if '"^^cdt:ucumunit' in row[12]:
-                    unit = row[12].split('"')[1]
-                    g.add((attribute_node_ref, SH.equals, Literal(unit)))
-
-        return g
-
+    @staticmethod
+    def add_union_attributes_to_graph(g: Graph, rows: [tuple]) -> Graph:
+        return OTLShaclGenerator.add_attributes_to_graph(g, rows, 'union')

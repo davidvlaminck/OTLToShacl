@@ -21,10 +21,10 @@ onderdeel:Voedt a owl:Class ;
 
 <https://wegenenverkeer.data.vlaanderen.be> a owl:Ontology ;
     rdfs:comment """Met het programma Open Standaarden voor Linkende Organisaties (OSLO) zet de Vlaamse overheid in op een 
-            éénduidige standaard voor de uitwisseling van informatie. De objecttypenbibliotheek (OTL) specificeert een 
-            implementatiemodel voor de data-uitwisseling gedurende de volledige levenscyclus van onderdelen en installaties 
-            die in brede zin verband houden met wegen en verkeer zoals gespecificeerd in de verschillende 
-            Standaardbestekken 250, 260 en 270.""" ;
+            éénduidige standaard voor de uitwisseling van informatie. De objecttypenbibliotheek (OTL) specificeert 
+            een implementatiemodel voor de data-uitwisseling gedurende de volledige levenscyclus van onderdelen en 
+            installaties die in brede zin verband houden met wegen en verkeer zoals gespecificeerd in de 
+            verschillende Standaardbestekken 250, 260 en 270.""" ;
     sh:declare [ sh:namespace <https://wegenenverkeer.data.vlaanderen.be> ;
             sh:prefix "awv" ] .
 

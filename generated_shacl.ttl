@@ -90,10 +90,10 @@ onderdeel:VoedtShape a sh:NodeShape ;
 
 <https://wegenenverkeer.data.vlaanderen.be> a owl:Ontology ;
     rdfs:comment """Met het programma Open Standaarden voor Linkende Organisaties (OSLO) zet de Vlaamse overheid in op een 
-            éénduidige standaard voor de uitwisseling van informatie. De objecttypenbibliotheek (OTL) specificeert een 
-            implementatiemodel voor de data-uitwisseling gedurende de volledige levenscyclus van onderdelen en installaties 
-            die in brede zin verband houden met wegen en verkeer zoals gespecificeerd in de verschillende 
-            Standaardbestekken 250, 260 en 270.""" ;
+            éénduidige standaard voor de uitwisseling van informatie. De objecttypenbibliotheek (OTL) specificeert 
+            een implementatiemodel voor de data-uitwisseling gedurende de volledige levenscyclus van onderdelen en 
+            installaties die in brede zin verband houden met wegen en verkeer zoals gespecificeerd in de 
+            verschillende Standaardbestekken 250, 260 en 270.""" ;
     sh:declare [ sh:namespace <https://wegenenverkeer.data.vlaanderen.be> ;
             sh:prefix "awv" ] .
 
@@ -425,7 +425,9 @@ onderdeel:AllCasesTestClass.testUnionTypeMetKardShape a sh:PropertyShape ;
     sh:minCount 0 ;
     sh:name "testUnionTypeMetKard" ;
     sh:nodeKind sh:BlankNode ;
-    sh:path onderdeel:AllCasesTestClass.testUnionTypeMetKard .
+    sh:path onderdeel:AllCasesTestClass.testUnionTypeMetKard ;
+    sh:property imel:DtuTestUnionType.unionKwantWrdShape,
+        imel:DtuTestUnionType.unionStringShape .
 
 onderdeel:AllCasesTestClass.testUnionTypeShape a sh:PropertyShape ;
     rdfs:label "Test UnionType" ;
@@ -434,7 +436,9 @@ onderdeel:AllCasesTestClass.testUnionTypeShape a sh:PropertyShape ;
     sh:minCount 0 ;
     sh:name "testUnionType" ;
     sh:nodeKind sh:BlankNode ;
-    sh:path onderdeel:AllCasesTestClass.testUnionType .
+    sh:path onderdeel:AllCasesTestClass.testUnionType ;
+    sh:property imel:DtuTestUnionType.unionKwantWrdShape,
+        imel:DtuTestUnionType.unionStringShape .
 
 onderdeel:AnotherTestClass.deprecatedStringShape a sh:PropertyShape ;
     rdfs:label "Deprecated Tekstveld" ;
@@ -565,6 +569,26 @@ imel:DteTestEenvoudigType.waardeShape a sh:PropertyShape ;
     sh:name "waarde" ;
     sh:nodeKind sh:Literal ;
     sh:path imel:DteTestEenvoudigType.waarde .
+
+imel:DtuTestUnionType.unionKwantWrdShape a sh:PropertyShape ;
+    rdfs:label "Union kwantitatieve waarde" ;
+    rdfs:comment imel:KwantWrdTest ;
+    sh:maxCount 1 ;
+    sh:minCount 0 ;
+    sh:name "unionKwantWrd" ;
+    sh:nodeKind sh:BlankNode ;
+    sh:path imel:DtuTestUnionType.unionKwantWrd ;
+    sh:property imel:KwantWrdTest.standaardEenheidShape,
+        imel:KwantWrdTest.waardeShape .
+
+imel:DtuTestUnionType.unionStringShape a sh:PropertyShape ;
+    rdfs:label "Union tekstveld" ;
+    sh:datatype xsd:string ;
+    sh:maxCount 1 ;
+    sh:minCount 0 ;
+    sh:name "unionString" ;
+    sh:nodeKind sh:Literal ;
+    sh:path imel:DtuTestUnionType.unionString .
 
 imel:KwantWrdInVolt.standaardEenheidShape a sh:PropertyShape ;
     rdfs:label "standaard eenheid" ;
