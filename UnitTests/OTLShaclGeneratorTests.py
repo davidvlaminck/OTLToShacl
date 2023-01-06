@@ -269,14 +269,14 @@ class OTLShaclGeneratorTests(TestCase):
                            'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtcTestComplexType2', '1',
                            '1',
                            'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtcTestComplexType2.testStringField',
-                           'http://www.w3.org/2001/XMLSchema#string', '', 'OSLODatatypePrimitive'),
+                           'http://www.w3.org/2001/XMLSchema#string', '', '', 'OSLODatatypePrimitive'),
                           ('DtcTestComplexType',
                            'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtcTestComplexType',
                            'Test ComplexType', '', 'testComplexType2', 'Test complexe waarde',
                            'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtcTestComplexType', '1',
                            '1',
                            'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtcTestComplexType.testComplexType2',
-                           'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtcTestComplexType2', '',
+                           'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtcTestComplexType2', '', '',
                            'OSLODatatypeComplex')]
 
         g = Graph()
@@ -351,3 +351,61 @@ class OTLShaclGeneratorTests(TestCase):
         first_elem_node_2 = g.value(subject=enum_list_node_2, predicate=RDF.first)
         self.assertEqual(URIRef('https://wegenenverkeer.data.vlaanderen.be/id/concept/KlTestKeuzelijst/waarde-1'),
                          first_elem_node_2)
+
+    def test_read_primitive_attributes_from_reader(self):
+        reader = SQLDbReader(Path('OTL_AllCasesTestClass.db'))
+        rows = OTLShaclGenerator.read_primitive_attributes_from_reader(reader)
+        self.assertEqual(17, len(rows))
+
+    def test_add_primitive_attributes_to_graph(self):
+        property_rows = [('testKwantWrd', 'Test KwantWrd', 'Test attribuut voor een kwantitatieve waarde',
+                          'https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass', '1', '1',
+                          'https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testKwantWrd',
+                          'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#KwantWrdTest', 0, '', 0,
+                          '', '', 'OSLODatatypePrimitive')]
+        attribute_rows = [('KwantWrdTest',
+                           'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#KwantWrdTest',
+                           'Kwantitatieve test waarde', '', 'standaardEenheid', 'standaard eenheid',
+                           'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#KwantWrdTest', '1', '1',
+                           'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#KwantWrdTest.standaardEenheid',
+                           'http://www.w3.org/2000/01/rdf-schema#Literal', '', '"%"^^cdt:ucumunit',
+                           'OSLODatatypePrimitive'),
+                          ('KwantWrdTest',
+                           'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#KwantWrdTest',
+                           'Kwantitatieve test waarde', '', 'waarde', 'waarde',
+                           'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#KwantWrdTest',
+                           '1', '1',
+                           'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#KwantWrdTest.waarde',
+                           'http://www.w3.org/2001/XMLSchema#decimal', '', '',
+                           'OSLODatatypePrimitive')
+                          ]
+
+        g = Graph()
+        g = OTLShaclGenerator.add_properties_to_graph(g, property_rows)
+        g = OTLShaclGenerator.add_primitive_attributes_to_graph(g, attribute_rows)
+
+        class_ref = URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClassShape')
+
+        kwant_wrd_type_ref = URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#KwantWrdTest')
+        kwant_wrd_attr_ref = URIRef(
+            'https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testKwantWrdShape')
+
+        standaard_eenheid_ref = URIRef(
+            'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#KwantWrdTest.standaardEenheidShape')
+        waarde_ref = URIRef(
+            'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#KwantWrdTest.waardeShape')
+
+        self.assertTrue((class_ref, SH.property, kwant_wrd_attr_ref) in g)
+        self.assertTrue((kwant_wrd_attr_ref, RDFS.comment, kwant_wrd_type_ref) in g)
+
+        self.assertTrue((kwant_wrd_attr_ref, SH.nodeKind, SH.BlankNode) in g)
+
+        self.assertTrue((kwant_wrd_attr_ref, SH.property, standaard_eenheid_ref) in g)
+        self.assertTrue((kwant_wrd_attr_ref, SH.property, waarde_ref) in g)
+
+        self.assertTrue((standaard_eenheid_ref, SH.nodeKind, SH.Literal) in g)
+        self.assertTrue((standaard_eenheid_ref, SH.datatype, RDFS.Literal) in g)
+        self.assertTrue((standaard_eenheid_ref, SH.equals, Literal('%')) in g)
+
+        self.assertTrue((waarde_ref, SH.nodeKind, SH.Literal) in g)
+        self.assertTrue((waarde_ref, SH.datatype, XSD.decimal) in g)

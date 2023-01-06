@@ -158,7 +158,9 @@ imel:AIMObject.theoretischeLevensduurShape a sh:PropertyShape ;
     sh:minCount 0 ;
     sh:name "theoretischeLevensduur" ;
     sh:nodeKind sh:BlankNode ;
-    sh:path imel:AIMObject.theoretischeLevensduur .
+    sh:path imel:AIMObject.theoretischeLevensduur ;
+    sh:property imel:KwantWrdInMaand.standaardEenheidShape,
+        imel:KwantWrdInMaand.waardeShape .
 
 imel:AIMObject.typeURIShape a sh:PropertyShape ;
     rdfs:label "type URI" ;
@@ -178,6 +180,25 @@ imel:AIMToestand.toestandShape a sh:PropertyShape ;
     sh:name "toestand" ;
     sh:nodeKind sh:IRI ;
     sh:path imel:AIMToestand.toestand .
+
+imel:KwantWrdInMaand.standaardEenheidShape a sh:PropertyShape ;
+    rdfs:label "standaard eenheid" ;
+    sh:datatype rdfs:Literal ;
+    sh:equals "mo" ;
+    sh:maxCount 1 ;
+    sh:minCount 0 ;
+    sh:name "standaardEenheid" ;
+    sh:nodeKind sh:Literal ;
+    sh:path imel:KwantWrdInMaand.standaardEenheid .
+
+imel:KwantWrdInMaand.waardeShape a sh:PropertyShape ;
+    rdfs:label "waarde" ;
+    sh:datatype xsd:nonNegativeInteger ;
+    sh:maxCount 1 ;
+    sh:minCount 0 ;
+    sh:name "waarde" ;
+    sh:nodeKind sh:Literal ;
+    sh:path imel:KwantWrdInMaand.waarde .
 
 imel:RelatieObject.assetIdShape a sh:PropertyShape ;
     rdfs:label "asset-id" ;
@@ -302,7 +323,8 @@ onderdeel:AllCasesTestClass.testEenvoudigTypeMetKardShape a sh:PropertyShape ;
     sh:minCount 0 ;
     sh:name "testEenvoudigTypeMetKard" ;
     sh:nodeKind sh:BlankNode ;
-    sh:path onderdeel:AllCasesTestClass.testEenvoudigTypeMetKard .
+    sh:path onderdeel:AllCasesTestClass.testEenvoudigTypeMetKard ;
+    sh:property imel:DteTestEenvoudigType.waardeShape .
 
 onderdeel:AllCasesTestClass.testEenvoudigTypeShape a sh:PropertyShape ;
     rdfs:label "Test EenvoudigType" ;
@@ -311,7 +333,8 @@ onderdeel:AllCasesTestClass.testEenvoudigTypeShape a sh:PropertyShape ;
     sh:minCount 0 ;
     sh:name "testEenvoudigType" ;
     sh:nodeKind sh:BlankNode ;
-    sh:path onderdeel:AllCasesTestClass.testEenvoudigType .
+    sh:path onderdeel:AllCasesTestClass.testEenvoudigType ;
+    sh:property imel:DteTestEenvoudigType.waardeShape .
 
 onderdeel:AllCasesTestClass.testIntegerFieldMetKardShape a sh:PropertyShape ;
     rdfs:label "Test IntegerField Met Kard" ;
@@ -355,7 +378,9 @@ onderdeel:AllCasesTestClass.testKwantWrdMetKardShape a sh:PropertyShape ;
     sh:minCount 0 ;
     sh:name "testKwantWrdMetKard" ;
     sh:nodeKind sh:BlankNode ;
-    sh:path onderdeel:AllCasesTestClass.testKwantWrdMetKard .
+    sh:path onderdeel:AllCasesTestClass.testKwantWrdMetKard ;
+    sh:property imel:KwantWrdTest.standaardEenheidShape,
+        imel:KwantWrdTest.waardeShape .
 
 onderdeel:AllCasesTestClass.testKwantWrdShape a sh:PropertyShape ;
     rdfs:label "Test KwantWrd" ;
@@ -364,7 +389,9 @@ onderdeel:AllCasesTestClass.testKwantWrdShape a sh:PropertyShape ;
     sh:minCount 0 ;
     sh:name "testKwantWrd" ;
     sh:nodeKind sh:BlankNode ;
-    sh:path onderdeel:AllCasesTestClass.testKwantWrd .
+    sh:path onderdeel:AllCasesTestClass.testKwantWrd ;
+    sh:property imel:KwantWrdTest.standaardEenheidShape,
+        imel:KwantWrdTest.waardeShape .
 
 onderdeel:AllCasesTestClass.testStringFieldMetKardShape a sh:PropertyShape ;
     rdfs:label "Test StringField Met Kard" ;
@@ -426,7 +453,9 @@ onderdeel:Voedt.aansluitspanningShape a sh:PropertyShape ;
     sh:minCount 0 ;
     sh:name "aansluitspanning" ;
     sh:nodeKind sh:BlankNode ;
-    sh:path onderdeel:Voedt.aansluitspanning .
+    sh:path onderdeel:Voedt.aansluitspanning ;
+    sh:property imel:KwantWrdInVolt.standaardEenheidShape,
+        imel:KwantWrdInVolt.waardeShape .
 
 onderdeel:Voedt.aansluitvermogenShape a sh:PropertyShape ;
     rdfs:label "aansluitvermogen" ;
@@ -436,7 +465,9 @@ onderdeel:Voedt.aansluitvermogenShape a sh:PropertyShape ;
     sh:minCount 0 ;
     sh:name "aansluitvermogen" ;
     sh:nodeKind sh:BlankNode ;
-    sh:path onderdeel:Voedt.aansluitvermogen .
+    sh:path onderdeel:Voedt.aansluitvermogen ;
+    sh:property imel:KwantWrdInVolt.standaardEenheidShape,
+        imel:KwantWrdInVolt.waardeShape .
 
 imel:DtcTestComplexType.testBooleanFieldShape a sh:PropertyShape ;
     rdfs:label "Test boolean veld" ;
@@ -474,7 +505,9 @@ imel:DtcTestComplexType.testKwantWrdMetKardShape a sh:PropertyShape ;
     sh:minCount 0 ;
     sh:name "testKwantWrdMetKard" ;
     sh:nodeKind sh:BlankNode ;
-    sh:path imel:DtcTestComplexType.testKwantWrdMetKard .
+    sh:path imel:DtcTestComplexType.testKwantWrdMetKard ;
+    sh:property imel:KwantWrdTest.standaardEenheidShape,
+        imel:KwantWrdTest.waardeShape .
 
 imel:DtcTestComplexType.testKwantWrdShape a sh:PropertyShape ;
     rdfs:label "Test kwantitatieve waarde" ;
@@ -483,7 +516,9 @@ imel:DtcTestComplexType.testKwantWrdShape a sh:PropertyShape ;
     sh:minCount 0 ;
     sh:name "testKwantWrd" ;
     sh:nodeKind sh:BlankNode ;
-    sh:path imel:DtcTestComplexType.testKwantWrd .
+    sh:path imel:DtcTestComplexType.testKwantWrd ;
+    sh:property imel:KwantWrdTest.standaardEenheidShape,
+        imel:KwantWrdTest.waardeShape .
 
 imel:DtcTestComplexType.testStringFieldMetKardShape a sh:PropertyShape ;
     rdfs:label "Test tekstveld met kardinaliteit" ;
@@ -509,7 +544,9 @@ imel:DtcTestComplexType2.testKwantWrdShape a sh:PropertyShape ;
     sh:minCount 0 ;
     sh:name "testKwantWrd" ;
     sh:nodeKind sh:BlankNode ;
-    sh:path imel:DtcTestComplexType2.testKwantWrd .
+    sh:path imel:DtcTestComplexType2.testKwantWrd ;
+    sh:property imel:KwantWrdTest.standaardEenheidShape,
+        imel:KwantWrdTest.waardeShape .
 
 imel:DtcTestComplexType2.testStringFieldShape a sh:PropertyShape ;
     rdfs:label "Test tekstveld" ;
@@ -519,6 +556,34 @@ imel:DtcTestComplexType2.testStringFieldShape a sh:PropertyShape ;
     sh:name "testStringField" ;
     sh:nodeKind sh:Literal ;
     sh:path imel:DtcTestComplexType2.testStringField .
+
+imel:DteTestEenvoudigType.waardeShape a sh:PropertyShape ;
+    rdfs:label "waarde" ;
+    sh:datatype xsd:string ;
+    sh:maxCount 1 ;
+    sh:minCount 0 ;
+    sh:name "waarde" ;
+    sh:nodeKind sh:Literal ;
+    sh:path imel:DteTestEenvoudigType.waarde .
+
+imel:KwantWrdInVolt.standaardEenheidShape a sh:PropertyShape ;
+    rdfs:label "standaard eenheid" ;
+    sh:datatype rdfs:Literal ;
+    sh:equals "V" ;
+    sh:maxCount 1 ;
+    sh:minCount 0 ;
+    sh:name "standaardEenheid" ;
+    sh:nodeKind sh:Literal ;
+    sh:path imel:KwantWrdInVolt.standaardEenheid .
+
+imel:KwantWrdInVolt.waardeShape a sh:PropertyShape ;
+    rdfs:label "waarde" ;
+    sh:datatype xsd:decimal ;
+    sh:maxCount 1 ;
+    sh:minCount 0 ;
+    sh:name "waarde" ;
+    sh:nodeKind sh:Literal ;
+    sh:path imel:KwantWrdInVolt.waarde .
 
 imel:DtcIdentificator.identificatorShape a sh:PropertyShape ;
     rdfs:label "identificator" ;
@@ -537,4 +602,23 @@ imel:DtcIdentificator.toegekendDoorShape a sh:PropertyShape ;
     sh:name "toegekendDoor" ;
     sh:nodeKind sh:Literal ;
     sh:path imel:DtcIdentificator.toegekendDoor .
+
+imel:KwantWrdTest.standaardEenheidShape a sh:PropertyShape ;
+    rdfs:label "standaard eenheid" ;
+    sh:datatype rdfs:Literal ;
+    sh:equals "%" ;
+    sh:maxCount 1 ;
+    sh:minCount 0 ;
+    sh:name "standaardEenheid" ;
+    sh:nodeKind sh:Literal ;
+    sh:path imel:KwantWrdTest.standaardEenheid .
+
+imel:KwantWrdTest.waardeShape a sh:PropertyShape ;
+    rdfs:label "waarde" ;
+    sh:datatype xsd:decimal ;
+    sh:maxCount 1 ;
+    sh:minCount 0 ;
+    sh:name "waarde" ;
+    sh:nodeKind sh:Literal ;
+    sh:path imel:KwantWrdTest.waarde .
 

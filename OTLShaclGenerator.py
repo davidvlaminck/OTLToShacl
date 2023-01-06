@@ -40,6 +40,10 @@ class OTLShaclGenerator:
         enum_rows = OTLShaclGenerator.read_enums_from_reader(reader=reader)
         g = OTLShaclGenerator.add_enums_to_graph(g=g, rows=enum_rows)
 
+        # primitive attributes
+        primitive_attr_rows = OTLShaclGenerator.read_primitive_attributes_from_reader(reader=reader)
+        g = OTLShaclGenerator.add_primitive_attributes_to_graph(g=g, rows=primitive_attr_rows)
+
         g.serialize(format='turtle', destination=shacl_path)
         h.serialize(format='turtle', destination=ont_path)
 
@@ -69,6 +73,7 @@ class OTLShaclGenerator:
         g.bind('imel', 'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#')
         g.bind('onderdeel', 'https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#')
         g.bind('abs', 'https://wegenenverkeer.data.vlaanderen.be/ns/abstracten#')
+        g.bind('kl', 'https://wegenenverkeer.data.vlaanderen.be/id/concept/')
 
         return g
 
@@ -150,14 +155,14 @@ class OTLShaclGenerator:
         return reader.perform_read_query(
             '''SELECT dtc.name, dtc.uri, dtc.label_nl, dtc.deprecated_version, dtca.name, dtca.label_nl, dtca.class_uri, 
                 dtca.kardinaliteit_min, dtca.kardinaliteit_max, dtca.uri, dtca.type, dtca.deprecated_version, 
-                TypeLinkTabel.item_tabel  
+                dtca.constraints, TypeLinkTabel.item_tabel  
             FROM OSLODatatypeComplex dtc 
                 LEFT JOIN OSLODatatypeComplexAttributen dtca ON dtc.uri = dtca.class_uri
                 LEFT JOIN TypeLinkTabel ON dtca."type" = TypeLinkTabel.item_uri
             ORDER BY dtc.uri;''', params={})
 
     @staticmethod
-    def add_complex_attributes_to_graph(g: Graph, rows: [tuple]) -> Graph:
+    def add_attributes_to_graph(g: Graph, rows: [tuple], attribute_type: str) -> Graph:
         for row in rows:
             attribute_node_ref = URIRef(row[9] + 'Shape')
 
@@ -166,10 +171,10 @@ class OTLShaclGenerator:
             g.add((attribute_node_ref, SH.path, URIRef(row[9])))
             g.add((attribute_node_ref, RDFS.label, Literal(row[5])))
 
-            if row[10] == 'http://www.w3.org/2000/01/rdf-schema#Literal' or 'http://www.w3.org/2001/XMLSchema' in row[10]:
+            if row[10] == str(RDFS.Literal) or 'http://www.w3.org/2001/XMLSchema' in row[10]:
                 g.add((attribute_node_ref, SH.nodeKind, SH.Literal))
                 g.add((attribute_node_ref, SH.datatype, URIRef(row[10])))
-            elif row[12] == 'OSLOEnumeration':
+            elif row[13] == 'OSLOEnumeration':
                 g.add((attribute_node_ref, SH.nodeKind, SH.IRI))
                 g.add((attribute_node_ref, RDFS.comment, URIRef(row[10])))
             else:
@@ -182,6 +187,13 @@ class OTLShaclGenerator:
             if row[8] != '*':
                 g.add((attribute_node_ref, SH.maxCount, Literal(int(row[8]))))
 
+            if attribute_type == 'primitive':
+                if row[10] == str(RDFS.Literal):
+                    if '"^^cdt:ucumunit' in row[12]:
+                        unit = row[12].split('"')[1]
+                        g.add((attribute_node_ref, SH.equals, Literal(unit)))
+
+
         # do this after creating the shapes to avoid missing attributes in complex datatypes (nested)
         for row in rows:
             subjects = g.subjects(predicate=RDFS.comment, object=URIRef(row[1]))
@@ -189,6 +201,10 @@ class OTLShaclGenerator:
                 g.add((subj, SH.property, URIRef(row[9] + 'Shape')))
 
         return g
+
+    @staticmethod
+    def add_complex_attributes_to_graph(g: Graph, rows: [tuple]) -> Graph:
+        return OTLShaclGenerator.add_attributes_to_graph(g, rows, 'complex')
 
     @staticmethod
     def get_enum_values_from_graph(keuzelijstnaam):
@@ -231,4 +247,48 @@ class OTLShaclGenerator:
 
         return g
 
+    @staticmethod
+    def read_primitive_attributes_from_reader(reader) -> [tuple]:
+        return reader.perform_read_query(
+            '''
+            SELECT dtp.name, dtp.uri, dtp.label_nl, dtp.deprecated_version, dtpa.name, dtpa.label_nl, dtpa.class_uri, 
+                dtpa.kardinaliteit_min, dtpa.kardinaliteit_max, dtpa.uri, dtpa.type, dtpa.deprecated_version, 
+                dtpa.constraints, TypeLinkTabel.item_tabel 
+            FROM OSLODatatypePrimitive dtp 
+                LEFT JOIN OSLODatatypePrimitiveAttributen dtpa ON dtp.uri = dtpa.class_uri
+                LEFT JOIN TypeLinkTabel ON dtpa."type" = TypeLinkTabel.item_uri
+            ORDER BY dtp.uri;''', params={})
+
+    @staticmethod
+    def add_primitive_attributes_to_graph(g: Graph, rows: [tuple]) -> Graph:
+        for row in rows:
+            if row[1] == 'http://www.w3.org/2000/01/rdf-schema#Literal' or 'http://www.w3.org/2001/XMLSchema' in row[1]:
+                continue
+
+            attribute_node_ref = URIRef(row[9] + 'Shape')
+
+            subjects = g.subjects(predicate=RDFS.comment, object=URIRef(row[1]))
+            for subj in subjects:
+                g.add((subj, SH.property, attribute_node_ref))
+
+            g.add((attribute_node_ref, RDF.type, SH.PropertyShape))
+            g.add((attribute_node_ref, SH.name, Literal(row[4])))
+            g.add((attribute_node_ref, SH.path, URIRef(row[9])))
+            g.add((attribute_node_ref, RDFS.label, Literal(row[5])))
+
+            g.add((attribute_node_ref, SH.nodeKind, SH.Literal))
+            g.add((attribute_node_ref, SH.datatype, URIRef(row[10])))
+
+            if row[11] != '':
+                g.add((attribute_node_ref, OWL.deprecated, Literal(True)))
+            g.add((attribute_node_ref, SH.minCount, Literal(0)))  # can't enforce kardinaliteit_min = 1
+            if row[8] != '*':
+                g.add((attribute_node_ref, SH.maxCount, Literal(int(row[8]))))
+
+            if row[10] == str(RDFS.Literal):
+                if '"^^cdt:ucumunit' in row[12]:
+                    unit = row[12].split('"')[1]
+                    g.add((attribute_node_ref, SH.equals, Literal(unit)))
+
+        return g
 
