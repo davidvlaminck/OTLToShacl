@@ -8,6 +8,7 @@ class ShaclCheckTests(TestCase):
     def test_minimal_failing_example_complex_literal(self):
         shacl_graph = Graph()
         shacl_graph.parse('shacl_min.ttl')
+        # shacl_graph.serialize(format='turtle', destination='shacl_min_parsed.ttl')
 
         data_graph = Graph()
         data_graph.add((URIRef('https://data.awvvlaanderen.be/id/asset/0000'), RDF.type,
@@ -32,8 +33,8 @@ class ShaclCheckTests(TestCase):
                      allow_warnings=True)
         conforms, results_graph, results_text = r
 
-        # for s, p, o in shacl_graph:
-        #     print(f'{s} {p} {o}')
+        for s, p, o in shacl_graph:
+            print(f'{s} {p} {o}')
 
         print(results_text)
         self.assertTrue(conforms)
