@@ -58,7 +58,7 @@ def process_enum_row(enum_row):
         g.add((enum_node, URIRef('http://www.w3.org/ns/shacl#in'), enum_node_list[0]))
 
 
-            #g.add((enum_node, SH.InConstraintComponent, enum_value))  # TODO ?? Shacl LIST?
+        #g.add((enum_node, SH.InConstraintComponent, enum_value))  # TODO implement as Shacl LIST?
 
     print(f'finished creating shacl for {enum_row[1]}')
 
