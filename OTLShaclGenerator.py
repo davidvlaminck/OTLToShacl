@@ -265,9 +265,6 @@ class OTLShaclGenerator:
                    for enum_row in rows]
         concurrent.futures.wait(futures)
 
-        for enum_row in rows:
-            OTLShaclGenerator.add_enum_to_graph(enum_row, g)
-
         return g
 
     @staticmethod
