@@ -48,6 +48,9 @@ class OTLShaclGenerator:
         enum_rows = OTLShaclGenerator.read_enums_from_reader(reader=reader)
         g = OTLShaclGenerator.add_enums_to_graph(g=g, rows=enum_rows)
 
+        # relation
+        # TODO
+
         g.serialize(format='turtle', destination=shacl_path)
         h.serialize(format='turtle', destination=ont_path)
 
@@ -70,7 +73,7 @@ class OTLShaclGenerator:
             verschillende Standaardbestekken 250, 260 en 270.''')))
         b = BNode()
         g.add((URIRef('https://wegenenverkeer.data.vlaanderen.be'), SH.declare, b))
-        g.add((b, SH.prefix, Literal('awv')))  # TODO ??
+        g.add((b, SH.prefix, Literal('awv')))  # TODO Verify this prefix is ok
         g.add((b, SH.namespace, URIRef('https://wegenenverkeer.data.vlaanderen.be')))
 
         g.bind('asset', 'https://data.awvvlaanderen.be/id/asset/')
