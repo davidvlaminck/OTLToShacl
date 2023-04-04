@@ -198,17 +198,22 @@ class OTLShaclGeneratorTests(TestCase):
 
     def test_generate_subset_and_test_data_incorrect_union(self):
         data_g, shacl, ont, asset_ref = generate_data_shacl_ont_asset_for_testclass(False)
+        union_ref = BNode()
         kwant_wrd_ref = BNode()
         data_g.add((
             asset_ref,
             URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testUnionType'),
+            union_ref))
+        data_g.add((
+            union_ref,
+            URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtuTestUnionType.unionKwantWrd'),
             kwant_wrd_ref))
         data_g.add((
             kwant_wrd_ref,
-            URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtuTestUnionType.unionKwantWrd'),
-            BNode()))
+            URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#KwantWrdTest.waarde'),
+            Literal('2.5', datatype=XSD.decimal)))
         data_g.add((
-            kwant_wrd_ref,
+            union_ref,
             URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtuTestUnionType.unionString'),
             Literal('test')))
         r = validate(data_g,

@@ -440,7 +440,7 @@ imel:DtuTestUnionType.unionKwantWrdUnionConstraintShape
         ]
 		[
 			sh:path imel:DtuTestUnionType.unionString ;
-			sh:maxCount 0 ;
+			sh:minCount 0 ;
 		]
 	) .
 
@@ -454,7 +454,7 @@ imel:DtuTestUnionType.unionStringUnionConstraintShape
         ]
 		[
 			sh:path imel:DtuTestUnionType.unionString ;
-			sh:maxCount 1 ;
+			sh:minCount 1 ;
 		]
 	) .
 
@@ -470,12 +470,36 @@ onderdeel:AllCasesTestClass.testUnionTypeShape a sh:PropertyShape ;
     sh:property imel:DtuTestUnionType.unionKwantWrdShape,
         imel:DtuTestUnionType.unionStringShape .
 
-onderdeel:AllCasesTestClass.testUnionTypeConstraintShape a sh:NodeShape ;
-    sh:targetClass onderdeel:AllCasesTestClass.testUnionTypeShape ;
+<https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#MinimalClassShapeConstraint> a sh:NodeShape ;
+    rdfs:comment "minimal test class showing a validation error with a union type" ;
+    sh:targetObjectsOf onderdeel:AllCasesTestClass.testUnionType ;
     sh:or (
-		imel:DtuTestUnionType.unionKwantWrdUnionConstraintShape
-        imel:DtuTestUnionType.unionStringUnionConstraintShape
+		[
+		    sh:and (
+                [
+                    sh:path <https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtuTestUnionType.unionKwantWrd> ;
+                    sh:maxCount 0 ;
+                ]
+                [
+                    sh:path imel:DtuTestUnionType.unionString ;
+                    sh:minCount 1 ;
+                ]
+            )
+        ]
+        [
+            sh:and (
+                [
+                    sh:path <https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtuTestUnionType.unionKwantWrd> ;
+                    sh:minCount 1 ;
+                ]
+                [
+                    sh:path imel:DtuTestUnionType.unionString ;
+                    sh:maxCount 0 ;
+                ]
+            )
+        ]
 	) .
+
 
 onderdeel:AnotherTestClass.deprecatedStringShape a sh:PropertyShape ;
     rdfs:label "Deprecated Tekstveld" ;
