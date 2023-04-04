@@ -178,23 +178,39 @@ class OTLShaclGeneratorTests(TestCase):
         self.assertTrue('Results (2)' in results_text)
 
     def test_generate_subset_and_test_data_correct_union(self):
-        data_g, shacl, ont, asset_ref = generate_data_shacl_ont_asset_for_testclass()
-        kwant_wrd_ref = BNode()
-        data_g.add((
-            asset_ref,
-            URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testUnionType'),
-            kwant_wrd_ref))
-        data_g.add((
-            kwant_wrd_ref,
-            URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtuTestUnionType.unionKwantWrd'),
-            BNode()))
-        r = validate(data_g,
-                     shacl_graph=shacl,
-                     ont_graph=ont,
-                     allow_infos=True,
-                     allow_warnings=True)
-        conforms, results_graph, results_text = r
-        self.assertTrue(conforms)
+        with self.subTest('1 value'):
+            data_g, shacl, ont, asset_ref = generate_data_shacl_ont_asset_for_testclass(False)
+            kwant_wrd_ref = BNode()
+            data_g.add((
+                asset_ref,
+                URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testUnionType'),
+                kwant_wrd_ref))
+            data_g.add((
+                kwant_wrd_ref,
+                URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtuTestUnionType.unionKwantWrd'),
+                BNode()))
+            r = validate(data_g,
+                         shacl_graph=shacl,
+                         ont_graph=ont,
+                         allow_infos=True,
+                         allow_warnings=True)
+            conforms, results_graph, results_text = r
+            self.assertTrue(conforms)
+
+        with self.subTest('no value'):
+            data_g, shacl, ont, asset_ref = generate_data_shacl_ont_asset_for_testclass(False)
+            kwant_wrd_ref = BNode()
+            data_g.add((
+                asset_ref,
+                URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testUnionType'),
+                kwant_wrd_ref))
+            r = validate(data_g,
+                         shacl_graph=shacl,
+                         ont_graph=ont,
+                         allow_infos=True,
+                         allow_warnings=True)
+            conforms, results_graph, results_text = r
+            self.assertTrue(conforms)
 
     def test_generate_subset_and_test_data_incorrect_union(self):
         data_g, shacl, ont, asset_ref = generate_data_shacl_ont_asset_for_testclass(False)

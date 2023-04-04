@@ -431,34 +431,6 @@ onderdeel:AllCasesTestClass.testUnionTypeMetKardShape a sh:PropertyShape ;
         imel:DtuTestUnionType.unionStringShape .
 
 
-imel:DtuTestUnionType.unionKwantWrdUnionConstraintShape
-    a sh:NodeShape;
-    sh:and (
-		[
-            sh:path imel:DtuTestUnionType.unionKwantWrd ;
-            sh:minCount 1 ;
-        ]
-		[
-			sh:path imel:DtuTestUnionType.unionString ;
-			sh:minCount 0 ;
-		]
-	) .
-
-
-imel:DtuTestUnionType.unionStringUnionConstraintShape
-    a sh:NodeShape;
-    sh:and (
-		[
-            sh:path imel:DtuTestUnionType.unionKwantWrd ;
-            sh:minCount 0 ;
-        ]
-		[
-			sh:path imel:DtuTestUnionType.unionString ;
-			sh:minCount 1 ;
-		]
-	) .
-
-
 onderdeel:AllCasesTestClass.testUnionTypeShape a sh:PropertyShape ;
     rdfs:label "Test UnionType" ;
     rdfs:comment imel:DtuTestUnionType ;
@@ -470,14 +442,26 @@ onderdeel:AllCasesTestClass.testUnionTypeShape a sh:PropertyShape ;
     sh:property imel:DtuTestUnionType.unionKwantWrdShape,
         imel:DtuTestUnionType.unionStringShape .
 
-<https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#MinimalClassShapeConstraint> a sh:NodeShape ;
+onderdeel:AllCasesTestClass.testUnionTypeUnionConstraint a sh:NodeShape ;
     rdfs:comment "minimal test class showing a validation error with a union type" ;
     sh:targetObjectsOf onderdeel:AllCasesTestClass.testUnionType ;
     sh:or (
+        [
+		    sh:and (
+                [
+                    sh:path imel:DtuTestUnionType.unionKwantWrd ;
+                    sh:maxCount 0 ;
+                ]
+                [
+                    sh:path imel:DtuTestUnionType.unionString ;
+                    sh:maxCount 0 ;
+                ]
+            )
+        ]
 		[
 		    sh:and (
                 [
-                    sh:path <https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtuTestUnionType.unionKwantWrd> ;
+                    sh:path imel:DtuTestUnionType.unionKwantWrd ;
                     sh:maxCount 0 ;
                 ]
                 [
@@ -489,7 +473,7 @@ onderdeel:AllCasesTestClass.testUnionTypeShape a sh:PropertyShape ;
         [
             sh:and (
                 [
-                    sh:path <https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#DtuTestUnionType.unionKwantWrd> ;
+                    sh:path imel:DtuTestUnionType.unionKwantWrd ;
                     sh:minCount 1 ;
                 ]
                 [
