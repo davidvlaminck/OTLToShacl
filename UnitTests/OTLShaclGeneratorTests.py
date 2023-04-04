@@ -617,7 +617,7 @@ class OTLShaclGeneratorTests(TestCase):
         self.assertTrue((union_string_ref, SH.datatype, XSD.string) in g)
 
     def test_generate_subset_and_test_data_relations(self):
-        with self.subTest('correct use of relation'):
+        with self.subTest('correct use of Voedt relation'):
             data_g, shacl, ont, asset_ref = generate_data_shacl_ont_asset_for_testclass()
             data_g.add((asset_ref,
                         URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testBooleanField'),
@@ -625,13 +625,49 @@ class OTLShaclGeneratorTests(TestCase):
             asset_2_ref = URIRef('https://data.awvvlaanderen.be/id/asset/0001')
             data_g.add((asset_2_ref, RDF.type,
                         URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AnotherTestClass')))
-            voedt_ref = URIRef('https://data.awvvlaanderen.be/id/asset/0002')
-            data_g.add((voedt_ref, RDF.type,
+            bevestiging_ref = URIRef('https://data.awvvlaanderen.be/id/asset/0002')
+            data_g.add((bevestiging_ref, RDF.type,
                         URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#Voedt')))
-            data_g.add((voedt_ref,
+            data_g.add((bevestiging_ref,
                         URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#RelatieObject.bron'),
                         asset_ref))
-            data_g.add((voedt_ref,
+            data_g.add((bevestiging_ref,
+                        URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#RelatieObject.doel'),
+                        asset_2_ref))
+
+            r = validate(data_g,
+                         shacl_graph=shacl,
+                         ont_graph=ont,
+                         allow_infos=True,
+                         allow_warnings=True)
+            conforms, results_graph, results_text = r
+            print(results_text)
+            self.assertTrue(conforms)
+
+        with self.subTest('correct use of Bevestiging relation'):
+            data_g, shacl, ont, asset_ref = generate_data_shacl_ont_asset_for_testclass()
+            data_g.add((asset_ref,
+                        URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testBooleanField'),
+                        Literal(True)))
+            asset_2_ref = URIRef('https://data.awvvlaanderen.be/id/asset/0001')
+            data_g.add((asset_2_ref, RDF.type,
+                        URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AnotherTestClass')))
+            bevestiging_ref = URIRef('https://data.awvvlaanderen.be/id/asset/0002')
+            data_g.add((bevestiging_ref, RDF.type,
+                        URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#Bevestiging')))
+            data_g.add((bevestiging_ref,
+                        URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#RelatieObject.bron'),
+                        asset_ref))
+            r = validate(data_g,
+                         shacl_graph=shacl,
+                         ont_graph=ont,
+                         allow_infos=True,
+                         allow_warnings=True)
+            conforms, results_graph, results_text = r
+            print(results_text)
+            self.assertFalse(conforms)
+
+            data_g.add((bevestiging_ref,
                         URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#RelatieObject.doel'),
                         asset_2_ref))
 
@@ -652,13 +688,13 @@ class OTLShaclGeneratorTests(TestCase):
             asset_2_ref = URIRef('https://data.awvvlaanderen.be/id/asset/0001')
             data_g.add((asset_2_ref, RDF.type,
                         URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AnotherTestClass')))
-            voedt_ref = URIRef('https://data.awvvlaanderen.be/id/asset/0002')
-            data_g.add((voedt_ref, RDF.type,
+            bevestiging_ref = URIRef('https://data.awvvlaanderen.be/id/asset/0002')
+            data_g.add((bevestiging_ref, RDF.type,
                         URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#Voedt')))
-            data_g.add((voedt_ref,
+            data_g.add((bevestiging_ref,
                         URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#RelatieObject.bron'),
                         asset_2_ref))
-            data_g.add((voedt_ref,
+            data_g.add((bevestiging_ref,
                         URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#RelatieObject.doel'),
                         asset_ref))
 

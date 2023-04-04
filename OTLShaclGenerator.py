@@ -394,22 +394,3 @@ class OTLShaclGenerator:
         g.add((URIRef(row[4] + 'RelationConstraint'), URIRef('http://www.w3.org/ns/shacl#and'), and_node_list[0]))
 
         return g
-        # for union_type_uri, attribute_list in union_dict.items():
-        #     g.add((URIRef(union_type_uri + 'UnionConstraint'), RDF.type, SH.NodeShape))
-        #     g.add((URIRef(union_type_uri + 'UnionConstraint'), RDFS.comment,
-        #            Literal(f'union constraint of {union_type_uri}')))
-        #     g.add((URIRef(union_type_uri + 'UnionConstraint'), SH.targetObjectsOf, URIRef(union_type_uri)))
-        #
-        #     or_node_list = []
-        #
-        #     # 0 maxcount node
-        #     and_node_list = []
-        #     for attribute in attribute_list:
-        #         node = BNode()
-        #         and_node_list.append(node)
-        #         g.add((node, SH.path, URIRef(attribute)))
-        #         g.add((node, SH.maxCount, Literal(0)))
-        #     zero_node_list = OTLShaclGenerator.create_shacl_list(and_node_list, g)
-        #     zero_node = BNode()
-        #     g.add((zero_node, URIRef('http://www.w3.org/ns/shacl#and'), zero_node_list[0]))
-        #     or_node_list.append(zero_node)
