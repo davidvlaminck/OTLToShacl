@@ -2,6 +2,8 @@ import concurrent
 import os
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
+from typing import Iterable
+
 from rdflib import Graph, Namespace, URIRef, RDF, RDFS, OWL, Literal, SH, BNode, SKOS
 
 from SQLDbReader import SQLDbReader
@@ -172,6 +174,7 @@ class OTLShaclGenerator:
 
     @staticmethod
     def add_attributes_to_graph(g: Graph, rows: [tuple], attribute_type: str) -> Graph:
+        union_dict = {}
         for row in rows:
             if row[1] == str(RDFS.Literal) or 'http://www.w3.org/2001/XMLSchema' in row[1]:
                 continue
@@ -205,7 +208,10 @@ class OTLShaclGenerator:
                         unit = row[12].split('"')[1]
                         g.add((attribute_node_ref, SH.pattern, Literal(unit)))
 
-            # TODO add union constraint
+            if attribute_type == 'union':
+                if row[1] not in union_dict:
+                    union_dict[row[1]] = []
+                union_dict[row[1]].append(row[9])
 
         # do this after creating the shapes to avoid missing attributes in complex datatypes (nested)
         for row in rows:
@@ -213,7 +219,72 @@ class OTLShaclGenerator:
             for subj in subjects:
                 g.add((subj, SH.property, URIRef(row[9] + 'Shape')))
 
+        # add union contraints
+        if attribute_type == 'union':
+            for union_type_uri, attribute_list in union_dict.items():
+                g.add((URIRef(union_type_uri + 'UnionConstraint'), RDF.type, SH.NodeShape))
+                g.add((URIRef(union_type_uri + 'UnionConstraint'), RDFS.comment, Literal(f'union constraint of {union_type_uri}')))
+                g.add((URIRef(union_type_uri + 'UnionConstraint'), SH.targetObjectsOf, URIRef(union_type_uri)))
+
+                or_node_list = []
+
+                # 0 maxcount node
+                and_node_list = []
+                for attribute in attribute_list:
+                    node = BNode()
+                    and_node_list.append(node)
+                    g.add((node, SH.path, URIRef(attribute)))
+                    g.add((node, SH.maxCount, Literal(0)))
+                zero_node_list = OTLShaclGenerator.create_shacl_list(and_node_list, g)
+                zero_node = BNode()
+                g.add((zero_node, URIRef('http://www.w3.org/ns/shacl#and'), zero_node_list[0]))
+                or_node_list.append(zero_node)
+
+                # 1 mincount node for each attribute
+                for one_attribute in attribute_list:
+                    and_node_list = []
+                    for attribute in attribute_list:
+                        if attribute == one_attribute:
+                            node = BNode()
+                            and_node_list.append(node)
+                            g.add((node, SH.path, URIRef(attribute)))
+                            g.add((node, SH.minCount, Literal(1)))
+                        else:
+                            node = BNode()
+                            and_node_list.append(node)
+                            g.add((node, SH.path, URIRef(attribute)))
+                            g.add((node, SH.maxCount, Literal(0)))
+                    one_node_list = OTLShaclGenerator.create_shacl_list(and_node_list, g)
+                    one_node = BNode()
+                    g.add((one_node, URIRef('http://www.w3.org/ns/shacl#and'), one_node_list[0]))
+                    or_node_list.append(one_node)
+
+                or_list = OTLShaclGenerator.create_shacl_list(or_node_list, g)
+                g.add((URIRef(union_type_uri + 'UnionConstraint'), URIRef('http://www.w3.org/ns/shacl#or'), or_list[0]))
+
+                # enum_node_list = []
+                # for enum_value in enum_values:
+                #     list_item_node = BNode()
+                #     enum_node_list.append(list_item_node)
+                #     g.add((list_item_node, RDF.first, enum_value))
+                # for index, node in enumerate(enum_node_list[0:-1]):
+                #     g.add((enum_node_list[index], RDF.rest, enum_node_list[index + 1]))
+                # g.add((enum_node_list[-1], RDF.rest, RDF.nil))
+                # g.add((subj, URIRef('http://www.w3.org/ns/shacl#in'), enum_node_list[0]))
+
         return g
+
+    @staticmethod
+    def create_shacl_list(element_list: Iterable, g: Graph):
+        or_node_list = []
+        for element in element_list:
+            list_item_node = BNode()
+            or_node_list.append(list_item_node)
+            g.add((list_item_node, RDF.first, element))
+        for index, node in enumerate(or_node_list[0:-1]):
+            g.add((or_node_list[index], RDF.rest, or_node_list[index + 1]))
+        g.add((or_node_list[-1], RDF.rest, RDF.nil))
+        return or_node_list
 
     @staticmethod
     def add_complex_attributes_to_graph(g: Graph, rows: [tuple]) -> Graph:
