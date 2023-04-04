@@ -1,0 +1,2321 @@
+@prefix abs: <https://wegenenverkeer.data.vlaanderen.be/ns/abstracten#> .
+@prefix imel: <https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#> .
+@prefix onderdeel: <https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+<http://purl.org/dc/terms/Agent> a owl:Class .
+
+abs:BekledingComponent a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+abs:Verankering a owl:Class .
+
+imel:ActivityComplex a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+imel:Derdenobject a owl:Class ;
+    rdfs:subClassOf imel:AIMDBStatus,
+        imel:AIMToestand .
+
+imel:ElectricityAppurtenance a owl:Class ;
+    rdfs:subClassOf imel:Appurtenance .
+
+imel:ElectricityCable a owl:Class ;
+    rdfs:subClassOf abs:Kabel .
+
+imel:Pipe a owl:Class ;
+    rdfs:subClassOf abs:Leiding,
+        abs:OmhullendeInrichting .
+
+imel:TelecommunicationsAppurtenance a owl:Class ;
+    rdfs:subClassOf imel:Appurtenance .
+
+imel:TelecommunicationsCable a owl:Class ;
+    rdfs:subClassOf abs:Kabel .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#ASTRIDInstallatie> a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Aanvaarbescherming> a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Aardingsinstallatie> a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Aswegersite> a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Baanlichaam> a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Balk> a owl:Class ;
+    rdfs:subClassOf abs:ConstructiefObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#BiFlashInstallatie> a owl:Class ;
+    rdfs:subClassOf imel:NaampadObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#BlindePut> a owl:Class ;
+    rdfs:subClassOf abs:Put,
+        imel:AIMObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Bochtafbakeningsinstallatie> a owl:Class ;
+    rdfs:subClassOf abs:EMAfbakening .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Boog> a owl:Class ;
+    rdfs:subClassOf abs:ConstructiefObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Brug> a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Brugballast> a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Brugdeel> a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Brugdek> a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Brugligger> a owl:Class ;
+    rdfs:subClassOf abs:ConstructiefObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Ecoduct> a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Ecoduiker> a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Ecokoker> a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Ecotunnel> a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Ecovallei> a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#ExterneNaspanning> a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Fietstelinstallatie> a owl:Class ;
+    rdfs:subClassOf imel:NaampadObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Flitsgroep> a owl:Class ;
+    rdfs:subClassOf imel:NaampadObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Flitspaal> a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Gebouw> a owl:Class ;
+    rdfs:subClassOf abs:Behuizing .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#GecombineerdePut> a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#GeluidwerendeConstructie> a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#GroepDwarseMarkeringEnFiguratie> a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#GroepMarkering> a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Gronddam> a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#HorizontaleConstructieplaat> a owl:Class ;
+    rdfs:subClassOf abs:ConstructiefObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Hulppost> a owl:Class ;
+    rdfs:subClassOf imel:NaampadObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#IPBackbone> a owl:Class ;
+    rdfs:subClassOf imel:NaampadObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#InspectieputRiolering> a owl:Class ;
+    rdfs:subClassOf abs:Put,
+        imel:AIMObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Kabelkoker> a owl:Class ;
+    rdfs:subClassOf abs:Kabelgeleiding .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Kelderlandhoofd> a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Kelderpijler> a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Kolom> a owl:Class ;
+    rdfs:subClassOf abs:ConstructiefObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#L2AccessStructuur> a owl:Class ;
+    rdfs:subClassOf imel:NaampadObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#LEDRotondeafbakening> a owl:Class ;
+    rdfs:subClassOf abs:EMAfbakening .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#LEDWegdekreflectorBebakening> a owl:Class ;
+    rdfs:subClassOf abs:EMAfbakening .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Landhoofd> a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Link> a owl:Class ;
+    rdfs:subClassOf imel:NaampadObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Lokaal> a owl:Class ;
+    rdfs:subClassOf abs:Behuizing .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Luchtkwaliteitsensor> a owl:Class ;
+    rdfs:subClassOf imel:NaampadObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#MIVInstallatie> a owl:Class ;
+    rdfs:subClassOf imel:NaampadObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Meetstation> a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Onderbord> a owl:Class ;
+    rdfs:subClassOf onderdeel:RetroreflecterendVerkeersbord .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Oplegrij> a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Pad> a owl:Class ;
+    rdfs:subClassOf imel:NaampadObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Pijler> a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Pyloon> a owl:Class ;
+    rdfs:subClassOf abs:ConstructiefObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#RadioheruitzendInstallatie> a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Randprofiel> a owl:Class ;
+    rdfs:subClassOf abs:ConstructiefObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Rioleringsstelsel> a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Slagboom> a owl:Class ;
+    rdfs:subClassOf imel:NaampadObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Trajectcontrole> a owl:Class ;
+    rdfs:subClassOf imel:NaampadObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Trekker> a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#VLAN> a owl:Class ;
+    rdfs:subClassOf imel:NaampadObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#VakwerkElement> a owl:Class ;
+    rdfs:subClassOf abs:ConstructiefObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#VerkeersbordConcept> a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#VerkeersbordVerkeersteken> a owl:Class ;
+    rdfs:subClassOf abs:Verkeersteken .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Verkeersbordopstelling> a owl:Class ;
+    rdfs:subClassOf abs:Signalisatie,
+        imel:AIMObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#VoorzieningNegatieveReactie> a owl:Class ;
+    rdfs:subClassOf abs:AanhorighedenBrug,
+        imel:AIMNaamObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Wand> a owl:Class ;
+    rdfs:subClassOf abs:ConstructiefObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Wegberm> a owl:Class ;
+    rdfs:subClassOf abs:TerreinDeel,
+        imel:AIMObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Windverband> a owl:Class ;
+    rdfs:subClassOf abs:ConstructiefObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Zoutbijlaadplaats> a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Zpad> a owl:Class ;
+    rdfs:subClassOf imel:NaampadObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/levenscyclus#Afdekking> a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/levenscyclus#Afgraving> a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/levenscyclus#BeheerBoomvorm> a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/levenscyclus#BeheerExoten> a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/levenscyclus#BeheerGrazigeVegetatie> a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/levenscyclus#BeheerHoutigeVegetatie> a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/levenscyclus#BeheerSierbeplanting> a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/levenscyclus#Bemesting> a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/levenscyclus#Bodemverbeteringsmiddel> a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/levenscyclus#Grondbewerking> a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/levenscyclus#Ophoging> a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/levenscyclus#Uitgraving> a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:AIDModule a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:ANPRCamera a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Aansluitmof a owl:Class ;
+    rdfs:subClassOf abs:LinkendElement .
+
+onderdeel:Aansluitopening a owl:Class ;
+    rdfs:subClassOf abs:LinkendElement .
+
+onderdeel:Aanstraalverlichting a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:AanvullendeGeometrie a owl:Class ;
+    rdfs:subClassOf abs:AbstracteAanvullendeGeometrie .
+
+onderdeel:Aardingskabel a owl:Class ;
+    rdfs:subClassOf abs:KabelAarding,
+        abs:KabelAardingSamenstelling,
+        imel:AIMNaamObject .
+
+onderdeel:Aardingslus a owl:Class ;
+    rdfs:subClassOf abs:KabelAarding,
+        abs:KabelAardingSamenstelling,
+        imel:AIMNaamObject .
+
+onderdeel:Aardingsonderbreker a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Aardingspen a owl:Class ;
+    rdfs:subClassOf abs:KabelAardingSamenstelling,
+        imel:AIMNaamObject .
+
+onderdeel:Afmetingsensor a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Afscherming a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:Afsluiter a owl:Class ;
+    rdfs:subClassOf abs:LinkendElement .
+
+onderdeel:Afsluiting a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:Aftakking a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:AlarmModule a owl:Class ;
+    rdfs:subClassOf abs:IPNetwerkToegangObject,
+        abs:RHZModule,
+        abs:SerienummerObject,
+        imel:AIMNaamObject .
+
+onderdeel:AnalogeHoppinzuil a owl:Class ;
+    rdfs:subClassOf abs:Hoppinzuil .
+
+onderdeel:Antenne a owl:Class ;
+    rdfs:subClassOf abs:Communicatieapparatuur .
+
+onderdeel:Antennecoupler a owl:Class ;
+    rdfs:subClassOf abs:ElektrischComponentennummerObject,
+        abs:SerienummerObject,
+        imel:AIMNaamObject .
+
+onderdeel:AntiParkeerpaal a owl:Class ;
+    rdfs:subClassOf abs:Straatmeubilair .
+
+onderdeel:Armatuurcontroller a owl:Class ;
+    rdfs:subClassOf abs:Communicatieapparatuur,
+        abs:FirmwareObject .
+
+onderdeel:Aswegerput a owl:Class ;
+    rdfs:subClassOf abs:Put,
+        abs:PutRelatie .
+
+onderdeel:Audioversterker a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Badgelezer a owl:Class ;
+    rdfs:subClassOf abs:ElektrischComponentennummerObject,
+        abs:FirmwareObject,
+        abs:SerienummerObject,
+        imel:AIMNaamObject .
+
+onderdeel:Batterij a owl:Class ;
+    rdfs:subClassOf abs:SerienummerObject,
+        abs:Voedingspunt .
+
+onderdeel:Bel a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Beschermbuis a owl:Class ;
+    rdfs:subClassOf abs:Leiding,
+        abs:OmhullendeInrichting .
+
+onderdeel:BeschermingWapening a owl:Class ;
+    rdfs:subClassOf abs:AndereLaag .
+
+onderdeel:BestratingVanBetonstraatsteen a owl:Class ;
+    rdfs:subClassOf abs:Bestrating .
+
+onderdeel:BestratingVanBetontegel a owl:Class ;
+    rdfs:subClassOf abs:Bestrating .
+
+onderdeel:BestratingVanGebakkenStraatsteen a owl:Class ;
+    rdfs:subClassOf abs:Bestrating .
+
+onderdeel:BestratingVanGrasbetontegel a owl:Class ;
+    rdfs:subClassOf abs:Bestrating .
+
+onderdeel:BestratingVanKassei a owl:Class ;
+    rdfs:subClassOf abs:Bestrating .
+
+onderdeel:BestratingVanMozaiekkei a owl:Class ;
+    rdfs:subClassOf abs:Bestrating .
+
+onderdeel:BestratingVanNatuursteentegel a owl:Class ;
+    rdfs:subClassOf abs:Bestrating .
+
+onderdeel:Bestrijking a owl:Class ;
+    rdfs:subClassOf abs:AndereLaag .
+
+onderdeel:BetonnenHeipaal a owl:Class ;
+    rdfs:subClassOf abs:BetonnenConstructieElement,
+        onderdeel:Funderingspaal .
+
+onderdeel:BetonnenPlaat a owl:Class ;
+    rdfs:subClassOf onderdeel:BetonnenConstructieObject .
+
+onderdeel:BetonnenProfiel a owl:Class ;
+    rdfs:subClassOf onderdeel:BetonnenConstructieObject .
+
+onderdeel:Bevestiging a owl:Class ;
+    rdfs:subClassOf imel:NietDirectioneleRelatie .
+
+onderdeel:Bevestigingsbeugel a owl:Class ;
+    rdfs:subClassOf abs:BevestigingGC,
+        imel:AIMNaamObject .
+
+onderdeel:BiFlash a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:BijzonderGeluidsschermelement a owl:Class ;
+    rdfs:subClassOf abs:Geluidsschermelement .
+
+onderdeel:Binnenverlichtingstoestel a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:BitumineuzeLaag a owl:Class ;
+    rdfs:subClassOf abs:LaagBouwklasse .
+
+onderdeel:BloemrijkGlanshavergrasland a owl:Class ;
+    rdfs:subClassOf onderdeel:BloemrijkGraslandGraslandfase4 .
+
+onderdeel:BloemrijkStruisgrasgrasland a owl:Class ;
+    rdfs:subClassOf onderdeel:BloemrijkGraslandGraslandfase4 .
+
+onderdeel:BloemrijkVochtigTotNatGrasland a owl:Class ;
+    rdfs:subClassOf onderdeel:BloemrijkGraslandGraslandfase4 .
+
+onderdeel:BoogpaalVerkeerslicht a owl:Class ;
+    rdfs:subClassOf abs:VRIDraagconstructie .
+
+onderdeel:Boom a owl:Class ;
+    rdfs:subClassOf abs:VegetatieElement .
+
+onderdeel:Boombrug a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:Bouwput a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:Bovenbouw a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:Braam a owl:Class ;
+    rdfs:subClassOf onderdeel:Struweel .
+
+onderdeel:Brandblusser a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:Brandhaspel a owl:Class ;
+    rdfs:subClassOf abs:Brandvoorziening .
+
+onderdeel:Brandleiding a owl:Class ;
+    rdfs:subClassOf onderdeel:Persleiding .
+
+onderdeel:Brandnetelruigte a owl:Class ;
+    rdfs:subClassOf onderdeel:Ruigte .
+
+onderdeel:Breedplaat a owl:Class ;
+    rdfs:subClassOf abs:ConstructieElement .
+
+onderdeel:BremEnGaspeldoornstruweel a owl:Class ;
+    rdfs:subClassOf onderdeel:Struweel .
+
+onderdeel:Brugdekvoeg a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Buisbekleding a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:Cabinecontroller a owl:Class ;
+    rdfs:subClassOf abs:Controller .
+
+onderdeel:Calamiteitendoorsteek a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:CalamiteitsBord a owl:Class ;
+    rdfs:subClassOf onderdeel:RetroreflecterendVerkeersbord .
+
+onderdeel:Camera a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:CapacitieveNiveaumeting a owl:Class ;
+    rdfs:subClassOf abs:Niveaumeting .
+
+onderdeel:Cementbetonverharding a owl:Class ;
+    rdfs:subClassOf abs:LaagBouwklasse .
+
+onderdeel:Cluster a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Codeklavier a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:ColloidaalBeton a owl:Class ;
+    rdfs:subClassOf abs:AndereVerharding .
+
+onderdeel:Combilantaarn a owl:Class ;
+    rdfs:subClassOf abs:Seinlantaarn .
+
+onderdeel:ConstructieSokkel a owl:Class ;
+    rdfs:subClassOf abs:BetonnenConstructieElement,
+        abs:ConstructieElement,
+        abs:ConstructieElementenGC .
+
+onderdeel:Contactor a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:Contactpunt a owl:Class ;
+    rdfs:subClassOf abs:SerienummerObject,
+        imel:AIMObject .
+
+onderdeel:Container a owl:Class ;
+    rdfs:subClassOf abs:Inloopbehuizing .
+
+onderdeel:Contourverlichting a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:DABRepeater a owl:Class ;
+    rdfs:subClassOf abs:IPNetwerkToegangObject,
+        abs:RHZModule,
+        imel:AIMNaamObject .
+
+onderdeel:DNBHoogspanning a owl:Class ;
+    rdfs:subClassOf abs:DNB .
+
+onderdeel:DNBLaagspanning a owl:Class ;
+    rdfs:subClassOf abs:DNB .
+
+onderdeel:Damwand a owl:Class ;
+    rdfs:subClassOf abs:ConstructieElement .
+
+onderdeel:Datakabel a owl:Class ;
+    rdfs:subClassOf abs:Kabel .
+
+onderdeel:DetectieCamera a owl:Class ;
+    rdfs:subClassOf abs:NietWeggebondenDetectie,
+        abs:TypeWeggebruiker .
+
+onderdeel:Dieptetemperatuursensor a owl:Class ;
+    rdfs:subClassOf abs:NietGedragenSensor .
+
+onderdeel:Dieselgenerator a owl:Class ;
+    rdfs:subClassOf abs:Voedingspunt .
+
+onderdeel:Dilatatie a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:Display a owl:Class ;
+    rdfs:subClassOf abs:ElektrischComponentennummerObject,
+        abs:SerienummerObject,
+        imel:AIMNaamObject .
+
+onderdeel:Divergentiepuntbebakeningselement a owl:Class ;
+    rdfs:subClassOf abs:Signalisatie,
+        imel:AIMObject .
+
+onderdeel:Dolomietverharding a owl:Class ;
+    rdfs:subClassOf abs:AndereVerharding .
+
+onderdeel:DominantGraslandfase2 a owl:Class ;
+    rdfs:subClassOf onderdeel:Grasland .
+
+onderdeel:Dongle a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Doorgang a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:Doornstruweel a owl:Class ;
+    rdfs:subClassOf onderdeel:Struweel .
+
+onderdeel:Doorverbinddoos a owl:Class ;
+    rdfs:subClassOf abs:Behuizing .
+
+onderdeel:Draagkabel a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Draineerbuis a owl:Class ;
+    rdfs:subClassOf abs:Buis .
+
+onderdeel:Drukknop a owl:Class ;
+    rdfs:subClassOf abs:NietWeggebondenDetectie .
+
+onderdeel:Druklaag a owl:Class ;
+    rdfs:subClassOf abs:ConstructieElement .
+
+onderdeel:Drukverhogingsgroep a owl:Class ;
+    rdfs:subClassOf abs:Brandvoorziening .
+
+onderdeel:Duikschot a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:Duingrasland a owl:Class ;
+    rdfs:subClassOf onderdeel:SoortenrijkSchraalGraslandGraslandfase5 .
+
+onderdeel:DunneOverlaging a owl:Class ;
+    rdfs:subClassOf abs:AndereLaag .
+
+onderdeel:DwarseMarkering a owl:Class ;
+    rdfs:subClassOf abs:DwarseMarkeringToegang .
+
+onderdeel:DwarseMarkeringVerschuind a owl:Class ;
+    rdfs:subClassOf abs:DwarseMarkeringToegang .
+
+onderdeel:Dwerghavergrasland a owl:Class ;
+    rdfs:subClassOf onderdeel:SoortenrijkSchraalGraslandGraslandfase5 .
+
+onderdeel:DwergstruikvegetatieHeidesoorten a owl:Class ;
+    rdfs:subClassOf onderdeel:Struweel .
+
+onderdeel:DynBordExternePU a owl:Class ;
+    rdfs:subClassOf abs:PU .
+
+onderdeel:DynBordOpMaat a owl:Class ;
+    rdfs:subClassOf abs:LEDBord .
+
+onderdeel:DynBordPK a owl:Class ;
+    rdfs:subClassOf abs:LEDBord .
+
+onderdeel:DynBordRSS a owl:Class ;
+    rdfs:subClassOf abs:LEDBord .
+
+onderdeel:DynBordRVMS a owl:Class ;
+    rdfs:subClassOf abs:LEDBord .
+
+onderdeel:DynBordVMS a owl:Class ;
+    rdfs:subClassOf abs:LEDBord .
+
+onderdeel:DynBordZ30 a owl:Class ;
+    rdfs:subClassOf abs:LEDBord .
+
+onderdeel:DynamischeVluchtwegindicatie a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:EcoPoort a owl:Class ;
+    rdfs:subClassOf abs:ComplexeGeleiding .
+
+onderdeel:Ecoraster a owl:Class ;
+    rdfs:subClassOf abs:ComplexeGeleiding .
+
+onderdeel:Eindstuk a owl:Class ;
+    rdfs:subClassOf abs:AfschermendeConstructie .
+
+onderdeel:Elektromotor a owl:Class ;
+    rdfs:subClassOf abs:ElektrischComponentennummerObject,
+        abs:SerienummerObject,
+        imel:AIMNaamObject .
+
+onderdeel:EnergiemeterAWV a owl:Class ;
+    rdfs:subClassOf abs:Energiemeter .
+
+onderdeel:EnergiemeterDNB a owl:Class ;
+    rdfs:subClassOf abs:DNBMeter .
+
+onderdeel:EnergiemeterDNBPiek a owl:Class ;
+    rdfs:subClassOf abs:DNBMeter .
+
+onderdeel:EnergiemeterDNBReactief a owl:Class ;
+    rdfs:subClassOf abs:DNBMeter .
+
+onderdeel:EnergiemeterDerden a owl:Class ;
+    rdfs:subClassOf abs:Energiemeter .
+
+onderdeel:EquipotentiaalVerbinding a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Exoten a owl:Class ;
+    rdfs:subClassOf abs:BegroeidVoorkomen .
+
+onderdeel:ExterneDetectie a owl:Class ;
+    rdfs:subClassOf abs:Detectie .
+
+onderdeel:FMRepeaterBox a owl:Class ;
+    rdfs:subClassOf abs:IPNetwerkToegangObject,
+        abs:RHZModule,
+        abs:SerienummerObject,
+        imel:AIMNaamObject .
+
+onderdeel:FieldOfView a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Fietslantaarn a owl:Class ;
+    rdfs:subClassOf abs:Seinlantaarn .
+
+onderdeel:FietstelDisplay a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Fietstelsysteem a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:FiguratieMarkering a owl:Class ;
+    rdfs:subClassOf abs:FiguratieMarkeringToegang .
+
+onderdeel:FiguratieMarkeringVerschuind a owl:Class ;
+    rdfs:subClassOf abs:FiguratieMarkeringToegang .
+
+onderdeel:Flitscamera a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:ForfaitaireAansluiting a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Funderingsmassief a owl:Class ;
+    rdfs:subClassOf abs:Fundering .
+
+onderdeel:Funderingsplaat a owl:Class ;
+    rdfs:subClassOf abs:Betonfundering,
+        abs:KlassiekeFundering .
+
+onderdeel:Funderingszool a owl:Class ;
+    rdfs:subClassOf abs:BetonnenConstructieElement,
+        abs:Fundering .
+
+onderdeel:GPU a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Galgpaal a owl:Class ;
+    rdfs:subClassOf abs:VRIDraagconstructie .
+
+onderdeel:GeexpandeerdPolystyreen a owl:Class ;
+    rdfs:subClassOf abs:AndereLaag .
+
+onderdeel:GekleurdWegvlakMarkering a owl:Class ;
+    rdfs:subClassOf abs:AOWSType,
+        abs:Markering .
+
+onderdeel:Geleideconstructie a owl:Class ;
+    rdfs:subClassOf abs:AansluitendeConstructie,
+        abs:EigenschappenVoertuigkering,
+        abs:SchokindexVoertuigkering .
+
+onderdeel:Geleidingsverlichting a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:Geleidingswand a owl:Class ;
+    rdfs:subClassOf abs:Geleiding .
+
+onderdeel:GeluidswerendeConstructie a owl:Class ;
+    rdfs:subClassOf abs:LijnvormigElement .
+
+onderdeel:Geotextiel a owl:Class ;
+    rdfs:subClassOf abs:AndereLaag .
+
+onderdeel:GetesteBeginconstructie a owl:Class ;
+    rdfs:subClassOf abs:Beginstuk,
+        abs:SchokindexVoertuigkering .
+
+onderdeel:GrasKruidenmixGraslandfase3 a owl:Class ;
+    rdfs:subClassOf onderdeel:Grasland .
+
+onderdeel:Grasmat a owl:Class ;
+    rdfs:subClassOf abs:GrazigeVegetatie .
+
+onderdeel:GrassenmixGraslandfase1 a owl:Class ;
+    rdfs:subClassOf onderdeel:Grasland .
+
+onderdeel:Grindgazon a owl:Class ;
+    rdfs:subClassOf abs:BegroeidVoorkomen .
+
+onderdeel:Grond a owl:Class ;
+    rdfs:subClassOf abs:Laag,
+        abs:LaagDikte .
+
+onderdeel:HSBeveiligingscel a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:HSCabine a owl:Class ;
+    rdfs:subClassOf onderdeel:Cabine .
+
+onderdeel:Haag a owl:Class ;
+    rdfs:subClassOf abs:HoutigeVegetatie .
+
+onderdeel:Handbediening a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Handwiel a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:Hardware a owl:Class ;
+    rdfs:subClassOf abs:HardwareToegang .
+
+onderdeel:HeeftAanvullendeGeometrie a owl:Class ;
+    rdfs:subClassOf imel:DirectioneleRelatie .
+
+onderdeel:HeeftBeheer a owl:Class ;
+    rdfs:subClassOf imel:DirectioneleRelatie .
+
+onderdeel:HeeftBetrokkene a owl:Class ;
+    rdfs:subClassOf imel:DirectioneleRelatie .
+
+onderdeel:HeeftNetwerkProtectie a owl:Class ;
+    rdfs:subClassOf imel:DirectioneleRelatie .
+
+onderdeel:HeeftNetwerktoegang a owl:Class ;
+    rdfs:subClassOf imel:DirectioneleRelatie .
+
+onderdeel:Heestermassief a owl:Class ;
+    rdfs:subClassOf abs:HoutigeVegetatie .
+
+onderdeel:HeischraalGrasland a owl:Class ;
+    rdfs:subClassOf onderdeel:SoortenrijkSchraalGraslandGraslandfase5 .
+
+onderdeel:Hoofdschakelaar a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Hoogtedetectie a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:HoortBij a owl:Class ;
+    rdfs:subClassOf imel:DirectioneleRelatie .
+
+onderdeel:HoutenConstructieprofiel a owl:Class ;
+    rdfs:subClassOf abs:ConstructieElement,
+        abs:HoutenConstructieElement .
+
+onderdeel:Huisaansluitput a owl:Class ;
+    rdfs:subClassOf abs:Put,
+        abs:PutRelatie .
+
+onderdeel:Hulppostkast a owl:Class ;
+    rdfs:subClassOf abs:Buitenkast .
+
+onderdeel:Hulpstuk a owl:Class ;
+    rdfs:subClassOf abs:LinkendElement,
+        abs:OmhullendeInrichting .
+
+onderdeel:Hydrant a owl:Class ;
+    rdfs:subClassOf abs:Brandvoorziening .
+
+onderdeel:HydrostatischeNiveaumeting a owl:Class ;
+    rdfs:subClassOf abs:Niveaumeting .
+
+onderdeel:IOKaart a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:ITSapp a owl:Class ;
+    rdfs:subClassOf abs:IVRIComponent .
+
+onderdeel:Iepenstruweel a owl:Class ;
+    rdfs:subClassOf onderdeel:OpgaandeHoutigeVegetatie .
+
+onderdeel:IndoorKast a owl:Class ;
+    rdfs:subClassOf abs:Kast .
+
+onderdeel:Infiltratievoorziening a owl:Class ;
+    rdfs:subClassOf abs:Put,
+        abs:PutRelatie .
+
+onderdeel:IntercomServer a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:IntercomToestel a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:InvasieveExoten a owl:Class ;
+    rdfs:subClassOf abs:BegroeidVoorkomen .
+
+onderdeel:InwendigVerlichtPictogram a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:IoTSensor a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:IpPowerSwitch a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:IsAdmOnderdeelVan a owl:Class ;
+    rdfs:subClassOf imel:DirectioneleRelatie .
+
+onderdeel:IsInspectieVan a owl:Class ;
+    rdfs:subClassOf imel:DirectioneleRelatie .
+
+onderdeel:IsNetwerkECC a owl:Class ;
+    rdfs:subClassOf imel:DirectioneleRelatie .
+
+onderdeel:IsSWGehostOp a owl:Class ;
+    rdfs:subClassOf imel:DirectioneleRelatie .
+
+onderdeel:IsSWOnderdeelVan a owl:Class ;
+    rdfs:subClassOf imel:DirectioneleRelatie .
+
+onderdeel:Kabelgoot a owl:Class ;
+    rdfs:subClassOf abs:Kabelgeleiding .
+
+onderdeel:Kabelladder a owl:Class ;
+    rdfs:subClassOf abs:Kabelgeleiding .
+
+onderdeel:Kabelmof a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:KabelnetBuis a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:KabelnetToegang a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Kalkgrasland a owl:Class ;
+    rdfs:subClassOf onderdeel:SoortenrijkSchraalGraslandGraslandfase5 .
+
+onderdeel:KalkrijkKamgrasland a owl:Class ;
+    rdfs:subClassOf onderdeel:BloemrijkGraslandGraslandfase4 .
+
+onderdeel:KantstrookAfw a owl:Class ;
+    rdfs:subClassOf abs:AfwijkendeKantopsluiting .
+
+onderdeel:KantstrookStd a owl:Class ;
+    rdfs:subClassOf abs:GestandaardiseerdeKantopsluiting .
+
+onderdeel:Klimatisatie a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Klimvorm a owl:Class ;
+    rdfs:subClassOf abs:VegetatieElement .
+
+onderdeel:Knipperlantaarn a owl:Class ;
+    rdfs:subClassOf abs:Seinlantaarn .
+
+onderdeel:Kopmuur a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:KringsBerliner a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:LEDDriver a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:Laagspanningsbord a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Ladder a owl:Class ;
+    rdfs:subClassOf abs:AanhorighedenBrug,
+        imel:AIMNaamObject .
+
+onderdeel:Lensplaat a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:LetterCijferMarkering a owl:Class ;
+    rdfs:subClassOf abs:FiguratieMarkeringToegang .
+
+onderdeel:LetterMarkeringVerschaald a owl:Class ;
+    rdfs:subClassOf abs:FiguratieMarkeringToegang .
+
+onderdeel:Lichtnagel a owl:Class ;
+    rdfs:subClassOf abs:EMAfbakening .
+
+onderdeel:Lichtsensor a owl:Class ;
+    rdfs:subClassOf abs:Sensoropstelling,
+        imel:AIMNaamObject .
+
+onderdeel:Lichtzuil a owl:Class ;
+    rdfs:subClassOf abs:EMAfbakening .
+
+onderdeel:LigtOp a owl:Class ;
+    rdfs:subClassOf imel:DirectioneleRelatie .
+
+onderdeel:LijnvormigElementMarkering a owl:Class ;
+    rdfs:subClassOf abs:AOWSType,
+        abs:Markering .
+
+onderdeel:Lockerkast a owl:Class ;
+    rdfs:subClassOf abs:Kast .
+
+onderdeel:Lockermanagementmodule a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:LogischePoort a owl:Class ;
+    rdfs:subClassOf abs:SoftwareToegang .
+
+onderdeel:Loofhout a owl:Class ;
+    rdfs:subClassOf onderdeel:OpgaandeHoutigeVegetatie .
+
+onderdeel:LoopTerminationAndProtection a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:LuchtkwaliteitControleUnit a owl:Class ;
+    rdfs:subClassOf abs:Luchtkwaliteittoestel .
+
+onderdeel:LuchtkwaliteitZenderOntvanger a owl:Class ;
+    rdfs:subClassOf abs:Luchtkwaliteittoestel .
+
+onderdeel:Luchtkwaliteitreflector a owl:Class ;
+    rdfs:subClassOf abs:Luchtkwaliteittoestel .
+
+onderdeel:Luidspreker a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:MACQPUFrontend a owl:Class ;
+    rdfs:subClassOf abs:PU .
+
+onderdeel:MIVCommunicatiekaart a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:MIVLus a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:MIVLuskaart a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:MIVProcessorkaart a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:MIVVoedingsmodule a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Mantelbuis a owl:Class ;
+    rdfs:subClassOf abs:Buis,
+        abs:ContainerBuis .
+
+onderdeel:Meetcel a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Meetmicrofoon a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Metselwerk a owl:Class ;
+    rdfs:subClassOf abs:ConstructieElement .
+
+onderdeel:Montagekast a owl:Class ;
+    rdfs:subClassOf abs:Buitenkast .
+
+onderdeel:Motorvangplank a owl:Class ;
+    rdfs:subClassOf abs:AfschermendeConstructie .
+
+onderdeel:Muurdoorgangsstuk a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:Muurvegetatie a owl:Class ;
+    rdfs:subClassOf abs:VegetatieElement .
+
+onderdeel:Naaldhout a owl:Class ;
+    rdfs:subClassOf onderdeel:OpgaandeHoutigeVegetatie .
+
+onderdeel:NatteRuigte a owl:Class ;
+    rdfs:subClassOf onderdeel:Ruigte .
+
+onderdeel:Neerslagsensor a owl:Class ;
+    rdfs:subClassOf abs:Sensoropstelling,
+        imel:AIMNaamObject .
+
+onderdeel:Netstabilisator a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:NetwerkModem a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Netwerkelement a owl:Class ;
+    rdfs:subClassOf abs:RHZModule,
+        imel:AIMNaamObject .
+
+onderdeel:Netwerkkaart a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Netwerkpoort a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:NietConformBegin a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:NietGetestBeginstuk a owl:Class ;
+    rdfs:subClassOf abs:Beginstuk .
+
+onderdeel:NietSelectieveDetectielus a owl:Class ;
+    rdfs:subClassOf abs:SelNietSelLus .
+
+onderdeel:NietStandaardStalenProfiel a owl:Class ;
+    rdfs:subClassOf abs:StalenProfiel .
+
+onderdeel:Noodstopknop a owl:Class ;
+    rdfs:subClassOf abs:ElektrischComponentennummerObject,
+        abs:SerienummerObject,
+        imel:AIMNaamObject .
+
+onderdeel:Noppendrainage a owl:Class ;
+    rdfs:subClassOf abs:AndereLaag .
+
+onderdeel:Obstakelbeveiliger a owl:Class ;
+    rdfs:subClassOf abs:AfschermendeConstructie,
+        abs:SchokindexVoertuigkering .
+
+onderdeel:OmegaElement a owl:Class ;
+    rdfs:subClassOf abs:Straatmeubilair .
+
+onderdeel:Omhult a owl:Class ;
+    rdfs:subClassOf imel:DirectioneleRelatie .
+
+onderdeel:Omvormer a owl:Class ;
+    rdfs:subClassOf abs:RHZModule,
+        imel:AIMNaamObject .
+
+onderdeel:OnbegroeidVoorkomen a owl:Class ;
+    rdfs:subClassOf abs:AndereVerharding .
+
+onderdeel:Onderbouw a owl:Class ;
+    rdfs:subClassOf abs:Laag,
+        abs:LaagDikte .
+
+onderdeel:Onderdoorboring a owl:Class ;
+    rdfs:subClassOf abs:AbstracteAanvullendeGeometrie .
+
+onderdeel:Onderwaterkruising a owl:Class ;
+    rdfs:subClassOf abs:AbstracteAanvullendeGeometrie .
+
+onderdeel:Onderwatervegetatie a owl:Class ;
+    rdfs:subClassOf abs:BegroeidVoorkomen .
+
+onderdeel:OntluchterBrandleiding a owl:Class ;
+    rdfs:subClassOf abs:Brandvoorziening .
+
+onderdeel:Ontvanger a owl:Class ;
+    rdfs:subClassOf abs:ZenderOntvangerToegang .
+
+onderdeel:OpenbaarVervoerslantaarn a owl:Class ;
+    rdfs:subClassOf abs:Seinlantaarn .
+
+onderdeel:OpgaandeBoom a owl:Class ;
+    rdfs:subClassOf abs:VegetatieElement .
+
+onderdeel:Oplegging a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:OptischeWegdeksensor a owl:Class ;
+    rdfs:subClassOf abs:Sensoropstelling,
+        imel:AIMNaamObject .
+
+onderdeel:Overdrukventilator a owl:Class ;
+    rdfs:subClassOf abs:Ventilatie .
+
+onderdeel:Overgangsconstructie a owl:Class ;
+    rdfs:subClassOf abs:AansluitendeConstructie,
+        abs:SchokindexVoertuigkering .
+
+onderdeel:OverlangseMarkering a owl:Class ;
+    rdfs:subClassOf abs:AOWSType,
+        abs:Markering .
+
+onderdeel:Overstort a owl:Class ;
+    rdfs:subClassOf abs:LinkendElement .
+
+onderdeel:Overstortrand a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:PCIKaart a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:PLC a owl:Class ;
+    rdfs:subClassOf abs:Controller .
+
+onderdeel:PMU a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:PTDemodulatoren a owl:Class ;
+    rdfs:subClassOf abs:PTModuleZFirmware .
+
+onderdeel:PTKARModem a owl:Class ;
+    rdfs:subClassOf abs:PTModuleMetFirmware .
+
+onderdeel:PTModem a owl:Class ;
+    rdfs:subClassOf abs:PTModuleMetFirmware .
+
+onderdeel:PTRadio a owl:Class ;
+    rdfs:subClassOf abs:PTModuleMetFirmware .
+
+onderdeel:PTRegelaar a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:PTSCKaart a owl:Class ;
+    rdfs:subClassOf abs:PTModuleZFirmware .
+
+onderdeel:PTUitgangskaart a owl:Class ;
+    rdfs:subClassOf abs:PTModuleZFirmware .
+
+onderdeel:PTVerwerkingseenheid a owl:Class ;
+    rdfs:subClassOf abs:PTModuleMetFirmware .
+
+onderdeel:PTVoedingsmodule a owl:Class ;
+    rdfs:subClassOf abs:PTModuleZFirmware .
+
+onderdeel:Pictogram a owl:Class ;
+    rdfs:subClassOf abs:BevestigingGC,
+        imel:AIMObject .
+
+onderdeel:PiezometrischeBuis a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:Plantbakvorm a owl:Class ;
+    rdfs:subClassOf abs:VegetatieElement .
+
+onderdeel:PlintGC a owl:Class ;
+    rdfs:subClassOf abs:BetonnenConstructieElement,
+        abs:ConstructieElement,
+        abs:ConstructieElementenGC .
+
+onderdeel:Plooibaken a owl:Class ;
+    rdfs:subClassOf abs:Straatmeubilair .
+
+onderdeel:PoEInjector a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Pomp a owl:Class ;
+    rdfs:subClassOf abs:LinkendElement .
+
+onderdeel:Printer a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:PunctueleVerlichtingsmast a owl:Class ;
+    rdfs:subClassOf abs:EMDraagconstructie,
+        imel:AIMNaamObject .
+
+onderdeel:PutBovenbouw a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:Putbekleding a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:Pyranometer a owl:Class ;
+    rdfs:subClassOf abs:Sensoropstelling,
+        imel:AIMNaamObject .
+
+onderdeel:RIS a owl:Class ;
+    rdfs:subClassOf abs:IVRIComponent .
+
+onderdeel:RaaigrasweideGraslandfase0 a owl:Class ;
+    rdfs:subClassOf onderdeel:Grasland .
+
+onderdeel:Rack a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Radar a owl:Class ;
+    rdfs:subClassOf abs:NietWeggebondenDetectie,
+        abs:TypeWeggebruiker .
+
+onderdeel:RadarNiveaumeting a owl:Class ;
+    rdfs:subClassOf abs:Niveaumeting .
+
+onderdeel:Radiolistener a owl:Class ;
+    rdfs:subClassOf abs:IPNetwerkToegangObject,
+        abs:RHZModule,
+        abs:SerienummerObject,
+        imel:AIMNaamObject .
+
+onderdeel:RechteSteun a owl:Class ;
+    rdfs:subClassOf abs:VRIDraagconstructie .
+
+onderdeel:Referentiepunt a owl:Class ;
+    rdfs:subClassOf abs:BevestigingGC,
+        abs:Signalisatie,
+        imel:AIMObject .
+
+onderdeel:ReflectorInLijnvormigElement a owl:Class ;
+    rdfs:subClassOf abs:Bebakening .
+
+onderdeel:Reflectorpaal a owl:Class ;
+    rdfs:subClassOf abs:Bebakening .
+
+onderdeel:Repeater a owl:Class ;
+    rdfs:subClassOf abs:ZenderOntvangerToegang .
+
+onderdeel:Reservoir a owl:Class ;
+    rdfs:subClassOf onderdeel:Kamer .
+
+onderdeel:RetroReflecterendeKoker a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:RetroreflecterendeFolie a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:Riet a owl:Class ;
+    rdfs:subClassOf onderdeel:Ruigte .
+
+onderdeel:Rioleringsbuis a owl:Class ;
+    rdfs:subClassOf abs:Buis .
+
+onderdeel:Riooltoegang a owl:Class ;
+    rdfs:subClassOf abs:Put,
+        abs:PutRelatie .
+
+onderdeel:Schacht a owl:Class ;
+    rdfs:subClassOf abs:PutRelatie .
+
+onderdeel:SchampkantAfw a owl:Class ;
+    rdfs:subClassOf abs:AfwijkendeKantopsluiting .
+
+onderdeel:SchampkantStd a owl:Class ;
+    rdfs:subClassOf abs:GestandaardiseerdeKantopsluiting .
+
+onderdeel:Schanskorf a owl:Class ;
+    rdfs:subClassOf abs:AndereVerharding .
+
+onderdeel:ScheurremmendeLaag a owl:Class ;
+    rdfs:subClassOf abs:AndereLaag .
+
+onderdeel:Segmentcontroller a owl:Class ;
+    rdfs:subClassOf abs:Controller .
+
+onderdeel:Seinbord a owl:Class ;
+    rdfs:subClassOf abs:Waarschuwingslantaarn .
+
+onderdeel:Seinbrug a owl:Class ;
+    rdfs:subClassOf abs:VRIDraagconstructie .
+
+onderdeel:SelectieveDetectielus a owl:Class ;
+    rdfs:subClassOf abs:SelNietSelLus .
+
+onderdeel:Sierbeplanting a owl:Class ;
+    rdfs:subClassOf abs:BegroeidVoorkomen .
+
+onderdeel:SignaalControleModule a owl:Class ;
+    rdfs:subClassOf abs:RHZModule,
+        abs:SerienummerObject,
+        imel:AIMNaamObject .
+
+onderdeel:SignaalSplitter a owl:Class ;
+    rdfs:subClassOf abs:ElektrischComponentennummerObject,
+        abs:SerienummerObject,
+        imel:AIMNaamObject .
+
+onderdeel:Signaalfilter a owl:Class ;
+    rdfs:subClassOf abs:RHZModule,
+        abs:SerienummerObject,
+        imel:AIMNaamObject .
+
+onderdeel:Signaalkabel a owl:Class ;
+    rdfs:subClassOf abs:Kabel .
+
+onderdeel:Silo a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Slagboomarm a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:SlagboomarmVerlichting a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:Slagboomkolom a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:Slemlaag a owl:Class ;
+    rdfs:subClassOf abs:AndereLaag .
+
+onderdeel:Sleuf a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:SluitAanOp a owl:Class ;
+    rdfs:subClassOf imel:DirectioneleRelatie .
+
+onderdeel:Sokkel a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:SolitaireHeester a owl:Class ;
+    rdfs:subClassOf abs:VegetatieElement .
+
+onderdeel:Spankabel a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Spanstaaf a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:StalenPlaat a owl:Class ;
+    rdfs:subClassOf onderdeel:StalenConstructieObject .
+
+onderdeel:StandaardStalenProfiel a owl:Class ;
+    rdfs:subClassOf abs:StalenProfiel .
+
+onderdeel:Steenslagverharding a owl:Class ;
+    rdfs:subClassOf abs:AndereVerharding .
+
+onderdeel:Stobbenwal a owl:Class ;
+    rdfs:subClassOf abs:Geleiding .
+
+onderdeel:Stopcontact a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:Stortdraad a owl:Class ;
+    rdfs:subClassOf abs:AndereLaag .
+
+onderdeel:Stortsteen a owl:Class ;
+    rdfs:subClassOf abs:AndereLaag .
+
+onderdeel:Straatkolk a owl:Class ;
+    rdfs:subClassOf abs:Put,
+        abs:PutRelatie .
+
+onderdeel:StroomMeetmodule a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Stroomdalgrasland a owl:Class ;
+    rdfs:subClassOf onderdeel:BloemrijkGraslandGraslandfase4 .
+
+onderdeel:Stroomkring a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Sturing a owl:Class ;
+    rdfs:subClassOf imel:NietDirectioneleRelatie .
+
+onderdeel:Stuurklep a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:StuurklepBrandleiding a owl:Class ;
+    rdfs:subClassOf abs:Brandvoorziening .
+
+onderdeel:TLCfiPoort a owl:Class ;
+    rdfs:subClassOf abs:IVRIComponent .
+
+onderdeel:Taludgoot a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:Tank a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:TechnischePut a owl:Class ;
+    rdfs:subClassOf abs:Behuizing .
+
+onderdeel:Telecomkabel a owl:Class ;
+    rdfs:subClassOf abs:Kabel .
+
+onderdeel:Ternairmengselverharding a owl:Class ;
+    rdfs:subClassOf abs:AndereVerharding .
+
+onderdeel:Terugkeer a owl:Class ;
+    rdfs:subClassOf abs:ComplexeGeleiding .
+
+onderdeel:Terugslagklep a owl:Class ;
+    rdfs:subClassOf abs:LinkendElement .
+
+onderdeel:ThermoHygrometer a owl:Class ;
+    rdfs:subClassOf abs:Sensoropstelling,
+        imel:AIMNaamObject .
+
+onderdeel:Tijdschakelaar a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Toegangscontrole a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Toegangscontroller a owl:Class ;
+    rdfs:subClassOf abs:Controller .
+
+onderdeel:Transformator a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:TrekdraadEncoderNiveaumeting a owl:Class ;
+    rdfs:subClassOf abs:Niveaumeting .
+
+onderdeel:Trillingsvoorziening a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:TrottoirbandAfw a owl:Class ;
+    rdfs:subClassOf abs:AfwijkendeKantopsluiting .
+
+onderdeel:TrottoirbandStd a owl:Class ;
+    rdfs:subClassOf abs:GestandaardiseerdeKantopsluiting .
+
+onderdeel:TrottoirbandWatergreppelAfw a owl:Class ;
+    rdfs:subClassOf abs:AfwijkendeKantopsluiting .
+
+onderdeel:TrottoirbandWatergreppelStd a owl:Class ;
+    rdfs:subClassOf abs:GestandaardiseerdeKantopsluiting .
+
+onderdeel:UPS a owl:Class ;
+    rdfs:subClassOf abs:RHZModule,
+        abs:Voedingspunt .
+
+onderdeel:UitheemsLoofhout a owl:Class ;
+    rdfs:subClassOf onderdeel:OpgaandeHoutigeVegetatie .
+
+onderdeel:UltrasoonNiveaumeting a owl:Class ;
+    rdfs:subClassOf abs:Niveaumeting .
+
+onderdeel:VRBAZ a owl:Class ;
+    rdfs:subClassOf abs:VRModuleZFirmware .
+
+onderdeel:VRBatterijICU a owl:Class ;
+    rdfs:subClassOf abs:VRModuleZFirmware .
+
+onderdeel:VRBeveiligingskaart a owl:Class ;
+    rdfs:subClassOf abs:VRModuleMetFirmware .
+
+onderdeel:VRCommunicatiekaart a owl:Class ;
+    rdfs:subClassOf abs:VRModuleMetFirmware .
+
+onderdeel:VRHandbediening a owl:Class ;
+    rdfs:subClassOf abs:VRModuleZFirmware .
+
+onderdeel:VRIVirtueleDetectiezone a owl:Class ;
+    rdfs:subClassOf abs:Detectielus .
+
+onderdeel:VRIngangscontacten a owl:Class ;
+    rdfs:subClassOf abs:VRModuleMetFirmware .
+
+onderdeel:VRKortsluitbeveiliging a owl:Class ;
+    rdfs:subClassOf abs:VRModuleMetFirmware .
+
+onderdeel:VRLuskaart a owl:Class ;
+    rdfs:subClassOf abs:VRModuleMetFirmware .
+
+onderdeel:VRStuurkaart a owl:Class ;
+    rdfs:subClassOf abs:VRModuleMetFirmware .
+
+onderdeel:VRUitgangscontacten a owl:Class ;
+    rdfs:subClassOf abs:VRModuleMetFirmware .
+
+onderdeel:Veerooster a owl:Class ;
+    rdfs:subClassOf abs:ComplexeGeleiding .
+
+onderdeel:Veiligheidsrelais a owl:Class ;
+    rdfs:subClassOf abs:ElektrischComponentennummerObject,
+        abs:SerienummerObject,
+        imel:AIMNaamObject .
+
+onderdeel:VentilatieAfsluitklep a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:Ventilatierooster a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:Ventilator a owl:Class ;
+    rdfs:subClassOf abs:Ventilatie .
+
+onderdeel:Verankeringslandhoofd a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:Verankeringsmassief a owl:Class ;
+    rdfs:subClassOf abs:Betonfundering,
+        abs:KlassiekeFundering .
+
+onderdeel:VerhardingGrasKunststofplaat a owl:Class ;
+    rdfs:subClassOf abs:Bestrating .
+
+onderdeel:Verkeersbordsteun a owl:Class ;
+    rdfs:subClassOf abs:Draagconstructie,
+        imel:AIMNaamObject .
+
+onderdeel:VerkeerslichtGroen a owl:Class ;
+    rdfs:subClassOf abs:Verkeerslicht .
+
+onderdeel:VerkeerslichtOranjegeel a owl:Class ;
+    rdfs:subClassOf abs:Verkeerslicht .
+
+onderdeel:VerkeerslichtRood a owl:Class ;
+    rdfs:subClassOf abs:Verkeerslicht .
+
+onderdeel:VerkeerslichtWit a owl:Class ;
+    rdfs:subClassOf abs:Verkeerslicht .
+
+onderdeel:Verkeersregelaar a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Verkeersspiegel a owl:Class ;
+    rdfs:subClassOf abs:Signalisatie,
+        imel:AIMObject .
+
+onderdeel:Verkenmerk a owl:Class ;
+    rdfs:subClassOf abs:AanhorighedenBrug,
+        imel:AIMNaamObject .
+
+onderdeel:VerlichtingstoestelHgLP a owl:Class ;
+    rdfs:subClassOf abs:Verlichtingstoestel,
+        abs:VerlichtingstoestelConnector .
+
+onderdeel:VerlichtingstoestelLED a owl:Class ;
+    rdfs:subClassOf abs:Verlichtingstoestel,
+        abs:VerlichtingstoestelConnector .
+
+onderdeel:VerlichtingstoestelMHHP a owl:Class ;
+    rdfs:subClassOf abs:Verlichtingstoestel,
+        abs:VerlichtingstoestelConnector .
+
+onderdeel:VerlichtingstoestelNaHP a owl:Class ;
+    rdfs:subClassOf abs:Verlichtingstoestel,
+        abs:VerlichtingstoestelConnector .
+
+onderdeel:VerlichtingstoestelNaLP a owl:Class ;
+    rdfs:subClassOf abs:Verlichtingstoestel .
+
+onderdeel:VerlichtingstoestelTL a owl:Class ;
+    rdfs:subClassOf abs:Verlichtingstoestel .
+
+onderdeel:VerruigdGrasland a owl:Class ;
+    rdfs:subClassOf onderdeel:Ruigte .
+
+onderdeel:VerstoordGrasland a owl:Class ;
+    rdfs:subClassOf onderdeel:Ruigte .
+
+onderdeel:Verwarmingselement a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:Verwarmingslint a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:VirtueleServer a owl:Class ;
+    rdfs:subClassOf abs:HardwareToegang .
+
+onderdeel:VlakGeluidsschermelement a owl:Class ;
+    rdfs:subClassOf abs:Geluidsschermelement .
+
+onderdeel:Vlierstruweel a owl:Class ;
+    rdfs:subClassOf onderdeel:Struweel .
+
+onderdeel:Vlotplaat a owl:Class ;
+    rdfs:subClassOf abs:BetonnenConstructieElement,
+        imel:AIMNaamObject .
+
+onderdeel:Vlotterschakelaar a owl:Class ;
+    rdfs:subClassOf abs:Niveaumeting .
+
+onderdeel:Vluchtdeur a owl:Class ;
+    rdfs:subClassOf abs:BevestigingGC,
+        abs:Deur,
+        imel:AIMObject .
+
+onderdeel:Vluchtopening a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:VoedingDerdenLaagspanning a owl:Class ;
+    rdfs:subClassOf abs:Voedingspunt .
+
+onderdeel:Voedingskabel a owl:Class ;
+    rdfs:subClassOf abs:Kabel .
+
+onderdeel:Voedt a owl:Class ;
+    rdfs:subClassOf imel:DirectioneleRelatie .
+
+onderdeel:VoedtAangestuurd a owl:Class ;
+    rdfs:subClassOf imel:DirectioneleRelatie .
+
+onderdeel:VoertuigkerendGeluidsschermelement a owl:Class ;
+    rdfs:subClassOf abs:BijlageVoertuigkering,
+        abs:EigenschappenVoertuigkering,
+        abs:Geluidsschermelement,
+        abs:SchokindexVoertuigkering .
+
+onderdeel:Voertuiglantaarn a owl:Class ;
+    rdfs:subClassOf abs:Seinlantaarn .
+
+onderdeel:Voetgangerslantaarn a owl:Class ;
+    rdfs:subClassOf abs:Seinlantaarn .
+
+onderdeel:Vooraankondiging a owl:Class ;
+    rdfs:subClassOf abs:Waarschuwingslantaarn .
+
+onderdeel:Voorschakelapparaat a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:VulpuntBrandweer a owl:Class ;
+    rdfs:subClassOf abs:Brandvoorziening .
+
+onderdeel:WIMDatalogger a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:WVConsole a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:WVLichtmast a owl:Class ;
+    rdfs:subClassOf onderdeel:Lichtmast .
+
+onderdeel:WVOpvoertransformator a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:Walsbetonverharding a owl:Class ;
+    rdfs:subClassOf abs:AndereVerharding .
+
+onderdeel:WaterdoorlatendeBestrating a owl:Class ;
+    rdfs:subClassOf abs:Bestrating .
+
+onderdeel:WatergreppelAfw a owl:Class ;
+    rdfs:subClassOf abs:AfwijkendeKantopsluiting .
+
+onderdeel:WatergreppelStd a owl:Class ;
+    rdfs:subClassOf abs:GestandaardiseerdeKantopsluiting .
+
+onderdeel:Weegcel a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Weegcomputer a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:Weegplaat a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:Weegsensor a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:WegbebakeningAfschermendeConstructies a owl:Class ;
+    rdfs:subClassOf abs:Bebakening .
+
+onderdeel:Wegdeksensor a owl:Class ;
+    rdfs:subClassOf abs:NietGedragenSensor .
+
+onderdeel:Wegdekvoeg a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:WeggebondenDetector a owl:Class ;
+    rdfs:subClassOf abs:Detectie,
+        abs:FirmwareObject .
+
+onderdeel:Wegkantkast a owl:Class ;
+    rdfs:subClassOf abs:Buitenkast .
+
+onderdeel:Wegreflector a owl:Class ;
+    rdfs:subClassOf abs:Bebakening .
+
+onderdeel:Wervel a owl:Class ;
+    rdfs:subClassOf abs:LinkendElement .
+
+onderdeel:Wildreflector a owl:Class ;
+    rdfs:subClassOf abs:Bebakening .
+
+onderdeel:Wilgenstruweel a owl:Class ;
+    rdfs:subClassOf onderdeel:OpgaandeHoutigeVegetatie .
+
+onderdeel:Windmeter a owl:Class ;
+    rdfs:subClassOf abs:Sensoropstelling,
+        imel:AIMNaamObject .
+
+onderdeel:Zender a owl:Class ;
+    rdfs:subClassOf abs:ZenderOntvangerToegang .
+
+onderdeel:Zendmast a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Zonnepaneel a owl:Class ;
+    rdfs:subClassOf abs:BevestigingGC,
+        abs:Voedingspunt .
+
+onderdeel:ZuilTGC a owl:Class ;
+    rdfs:subClassOf abs:SerienummerObject,
+        imel:AIMNaamObject .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#Keuring> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#MeteropnameEnergiemeterGecombineerd> a owl:Class ;
+    rdfs:subClassOf <https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#MeteropnameEnergiemeter> .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefBindmiddeldosering> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefBoomtoestand> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefConsistentie> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefDoorlatendheid> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefDraagvermogen> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefDraineervermogen> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefDruksterkte> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefDwarsvlakheid> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefEffectiefBindmiddelgehalte> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefGaafheid> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefGeluidstest> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefGemetenDikte> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefGrondkarakteristieken> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefHechtsterkte> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefKerendVermogen> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefKorrelverdeling> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefLangsvlakheid> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefLuchtdichtheid> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefLuchtgehalte> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefLuminantie> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefMortelkwaliteit> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefNaderOnderzoekTomograaf> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefPctHolleruimte> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefPerformantieklasse> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefPerformantieniveau> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefRetroreflectie> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefRolgeluid> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefSchokindex> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefSchokindexMVP> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefStaalvezelgehalte> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefStroefheid> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefTemperatuur> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefTextuurdiepte> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefVerankeringskracht> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefVerderOnderzoekTrekproef> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefVisueleBeoordeling> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefVlakheid> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefVoertuigOverhelling> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefWaterdichtheid> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefWatergehalte> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefWateropslorping> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefWeerstandAfschilfering> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefWerkingsbreedteGC> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefWerkingsbreedteMVP> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefZichtbaarheidBijDagOfWV> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefZichtbaarheidBijNacht> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefZichtbaarheidBijNachtNatWegdek> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#ProefZichtbaarheidBijNachtRegenweer> a owl:Class ;
+    rdfs:subClassOf abs:Proef .
+
+<https://wegenenverkeer.data.vlaanderen.be> a owl:Ontology ;
+    rdfs:comment """Met het programma Open Standaarden voor Linkende Organisaties (OSLO) zet de Vlaamse overheid in op een 
+            éénduidige standaard voor de uitwisseling van informatie. De objecttypenbibliotheek (OTL) specificeert 
+            een implementatiemodel voor de data-uitwisseling gedurende de volledige levenscyclus van onderdelen en 
+            installaties die in brede zin verband houden met wegen en verkeer zoals gespecificeerd in de 
+            verschillende Standaardbestekken 250, 260 en 270.""" ;
+    sh:declare [ sh:namespace <https://wegenenverkeer.data.vlaanderen.be> ;
+            sh:prefix "awv" ] .
+
+abs:AxiaalDraagvermogen a owl:Class .
+
+abs:ContainerBuis a owl:Class .
+
+abs:Deur a owl:Class ;
+    rdfs:subClassOf abs:Toegangselement .
+
+abs:Hoppinzuil a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+abs:HoutenConstructieElement a owl:Class .
+
+abs:SteunStandaard a owl:Class ;
+    rdfs:subClassOf abs:EMDraagconstructie,
+        imel:AIMNaamObject .
+
+abs:TerreinDeel a owl:Class .
+
+abs:Toegangselement a owl:Class .
+
+abs:Verkeersteken a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+onderdeel:Cabine a owl:Class ;
+    rdfs:subClassOf abs:Inloopbehuizing .
+
+onderdeel:Funderingspaal a owl:Class ;
+    rdfs:subClassOf abs:AxiaalDraagvermogen,
+        abs:Fundering .
+
+onderdeel:Kamer a owl:Class ;
+    rdfs:subClassOf abs:PutRelatie .
+
+onderdeel:Lichtmast a owl:Class ;
+    rdfs:subClassOf abs:EMDraagconstructie,
+        imel:AIMNaamObject .
+
+onderdeel:Persleiding a owl:Class ;
+    rdfs:subClassOf abs:Buis .
+
+onderdeel:Software a owl:Class ;
+    rdfs:subClassOf abs:SoftwareToegang .
+
+onderdeel:StalenConstructieObject a owl:Class ;
+    rdfs:subClassOf abs:ConstructieElement,
+        abs:StalenConstructieElement .
+
+<https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#MeteropnameEnergiemeter> a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+abs:AansluitendeConstructie a owl:Class ;
+    rdfs:subClassOf abs:AfschermendeConstructie .
+
+abs:Beginstuk a owl:Class ;
+    rdfs:subClassOf abs:AfschermendeConstructie .
+
+abs:Betonfundering a owl:Class ;
+    rdfs:subClassOf abs:Fundering .
+
+abs:BijlageVoertuigkering a owl:Class .
+
+abs:DNB a owl:Class ;
+    rdfs:subClassOf abs:Voedingspunt .
+
+abs:Detectielus a owl:Class ;
+    rdfs:subClassOf abs:Detectie .
+
+abs:Draagconstructie a owl:Class .
+
+abs:DwarseMarkeringToegang a owl:Class ;
+    rdfs:subClassOf abs:AOWSType,
+        abs:Markering .
+
+abs:EigenschappenVoertuigkering a owl:Class .
+
+abs:HardwareToegang a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+abs:Inloopbehuizing a owl:Class ;
+    rdfs:subClassOf abs:Behuizing .
+
+abs:KabelAarding a owl:Class .
+
+abs:KabelgeleidingEnLeidingBevestiging a owl:Class .
+
+abs:Kantopsluiting a owl:Class ;
+    rdfs:subClassOf abs:LijnvormigElement .
+
+abs:KlassiekeFundering a owl:Class ;
+    rdfs:subClassOf abs:BetonnenConstructieElement,
+        abs:Fundering .
+
+abs:LaagBouwklasse a owl:Class ;
+    rdfs:subClassOf abs:ArtificieleLaag .
+
+abs:LaagProductidentificatiecode a owl:Class .
+
+abs:Leiding a owl:Class ;
+    rdfs:subClassOf abs:KabelgeleidingEnLeidingBevestiging,
+        imel:AIMNaamObject .
+
+abs:NietGedragenSensor a owl:Class ;
+    rdfs:subClassOf abs:Sensor,
+        imel:AIMNaamObject .
+
+abs:PTRegelaarModule a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+abs:PU a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+abs:SelNietSelLus a owl:Class ;
+    rdfs:subClassOf abs:Detectielus .
+
+abs:Sensor a owl:Class .
+
+abs:SoftwareToegang a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+abs:StalenConstructieElement a owl:Class .
+
+abs:StalenProfiel a owl:Class ;
+    rdfs:subClassOf abs:ConstructieElement,
+        abs:ConstructieElementenGC,
+        abs:StalenConstructieElement .
+
+abs:TypeWeggebruiker a owl:Class .
+
+abs:Ventilatie a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+abs:Verkeersbord a owl:Class .
+
+abs:VerkeersregelaarModule a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+abs:Waarschuwingslantaarn a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+imel:Appurtenance a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+imel:NietDirectioneleRelatie a owl:Class ;
+    rdfs:subClassOf imel:RelatieObject .
+
+imel:RelatieObject a owl:Class ;
+    rdfs:subClassOf imel:AIMDBStatus .
+
+onderdeel:BetonnenConstructieObject a owl:Class ;
+    rdfs:subClassOf abs:BetonnenConstructieElement,
+        abs:ConstructieElement .
+
+onderdeel:RetroreflecterendVerkeersbord a owl:Class ;
+    rdfs:subClassOf abs:Verkeersbord,
+        imel:AIMObject .
+
+abs:AanhorighedenBrug a owl:Class .
+
+abs:AbstracteAanvullendeGeometrie a owl:Class ;
+    rdfs:subClassOf imel:AIMDBStatus,
+        imel:AIMToestand .
+
+abs:ArtificieleLaag a owl:Class ;
+    rdfs:subClassOf abs:Laag,
+        abs:LaagDikte,
+        abs:LaagProductidentificatiecode .
+
+abs:Buitenkast a owl:Class ;
+    rdfs:subClassOf abs:Kast .
+
+abs:Communicatieapparatuur a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+abs:ConstructieElementenGC a owl:Class .
+
+abs:DNBMeter a owl:Class ;
+    rdfs:subClassOf abs:Energiemeter .
+
+abs:EMDraagconstructie a owl:Class ;
+    rdfs:subClassOf abs:Draagconstructie .
+
+abs:Energiemeter a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+abs:Geleiding a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+abs:Geluidsschermelement a owl:Class ;
+    rdfs:subClassOf abs:LijnvormigElement .
+
+abs:GrazigeVegetatie a owl:Class ;
+    rdfs:subClassOf abs:BegroeidVoorkomen .
+
+abs:IVRIComponent a owl:Class ;
+    rdfs:subClassOf onderdeel:Software .
+
+abs:KabelAardingSamenstelling a owl:Class .
+
+abs:Kabelgeleiding a owl:Class ;
+    rdfs:subClassOf abs:KabelgeleidingEnLeidingBevestiging,
+        abs:OmhullendeInrichting,
+        imel:AIMNaamObject .
+
+abs:Kast a owl:Class ;
+    rdfs:subClassOf abs:Behuizing .
+
+abs:LaagDikte a owl:Class .
+
+abs:Luchtkwaliteittoestel a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+abs:NietWeggebondenDetectie a owl:Class ;
+    rdfs:subClassOf abs:Detectie,
+        abs:FirmwareObject .
+
+abs:Straatmeubilair a owl:Class ;
+    rdfs:subClassOf abs:Signalisatie,
+        imel:AIMObject .
+
+abs:VRModuleZFirmware a owl:Class ;
+    rdfs:subClassOf abs:VerkeersregelaarModule .
+
+abs:ZenderOntvangerToegang a owl:Class ;
+    rdfs:subClassOf abs:Communicatieapparatuur,
+        abs:FirmwareObject .
+
+imel:AIMToestand a owl:Class .
+
+abs:Buis a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+abs:ComplexeGeleiding a owl:Class ;
+    rdfs:subClassOf abs:Geleiding .
+
+abs:Controller a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+abs:Detectie a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+abs:FiguratieMarkeringToegang a owl:Class ;
+    rdfs:subClassOf abs:AOWSType,
+        abs:Markering .
+
+abs:HoutigeVegetatie a owl:Class ;
+    rdfs:subClassOf abs:BegroeidVoorkomen .
+
+abs:IPNetwerkToegangObject a owl:Class .
+
+abs:Laag a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+abs:LijnvormigElement a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+abs:OmhullendeInrichting a owl:Class .
+
+abs:PTModuleMetFirmware a owl:Class ;
+    rdfs:subClassOf abs:FirmwareObject,
+        abs:PTRegelaarModule .
+
+abs:PTModuleZFirmware a owl:Class ;
+    rdfs:subClassOf abs:PTRegelaarModule .
+
+abs:VRIDraagconstructie a owl:Class ;
+    rdfs:subClassOf abs:SteunStandaard .
+
+abs:Verkeerslicht a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+abs:VerlichtingstoestelConnector a owl:Class .
+
+imel:AIMDBStatus a owl:Class .
+
+onderdeel:SoortenrijkSchraalGraslandGraslandfase5 a owl:Class ;
+    rdfs:subClassOf onderdeel:Grasland .
+
+abs:AOWSType a owl:Class .
+
+abs:AfschermendeConstructie a owl:Class ;
+    rdfs:subClassOf abs:BijlageVoertuigkering,
+        abs:LijnvormigElement .
+
+abs:AfwijkendeKantopsluiting a owl:Class ;
+    rdfs:subClassOf abs:Kantopsluiting .
+
+abs:Bebakening a owl:Class ;
+    rdfs:subClassOf abs:Signalisatie,
+        imel:AIMObject .
+
+abs:BevestigingGC a owl:Class .
+
+abs:EMAfbakening a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+abs:Fundering a owl:Class ;
+    rdfs:subClassOf abs:ConstructieElement .
+
+abs:GestandaardiseerdeKantopsluiting a owl:Class ;
+    rdfs:subClassOf abs:Kantopsluiting .
+
+abs:Markering a owl:Class ;
+    rdfs:subClassOf abs:Signalisatie,
+        imel:AIMObject .
+
+abs:SchokindexVoertuigkering a owl:Class .
+
+onderdeel:BloemrijkGraslandGraslandfase4 a owl:Class ;
+    rdfs:subClassOf onderdeel:Grasland .
+
+onderdeel:OpgaandeHoutigeVegetatie a owl:Class ;
+    rdfs:subClassOf abs:HoutigeVegetatie .
+
+onderdeel:Ruigte a owl:Class ;
+    rdfs:subClassOf abs:GrazigeVegetatie .
+
+onderdeel:Struweel a owl:Class ;
+    rdfs:subClassOf abs:HoutigeVegetatie .
+
+abs:Behuizing a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+abs:Brandvoorziening a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+abs:Kabel a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+abs:LEDBord a owl:Class ;
+    rdfs:subClassOf abs:Verkeersbord,
+        imel:AIMNaamObject .
+
+abs:Niveaumeting a owl:Class ;
+    rdfs:subClassOf abs:SerienummerObject,
+        imel:AIMNaamObject .
+
+abs:Seinlantaarn a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+abs:Sensoropstelling a owl:Class ;
+    rdfs:subClassOf abs:Sensor .
+
+abs:VegetatieElement a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+abs:Verlichtingstoestel a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+abs:Voedingspunt a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Grasland a owl:Class ;
+    rdfs:subClassOf abs:GrazigeVegetatie .
+
+abs:AndereVerharding a owl:Class ;
+    rdfs:subClassOf abs:ArtificieleLaag .
+
+abs:BegroeidVoorkomen a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+abs:BetonnenConstructieElement a owl:Class .
+
+abs:ElektrischComponentennummerObject a owl:Class .
+
+abs:FirmwareObject a owl:Class .
+
+abs:Put a owl:Class .
+
+abs:PutRelatie a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+abs:Signalisatie a owl:Class .
+
+abs:VRModuleMetFirmware a owl:Class ;
+    rdfs:subClassOf abs:FirmwareObject,
+        abs:VerkeersregelaarModule .
+
+abs:LinkendElement a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+abs:Bestrating a owl:Class ;
+    rdfs:subClassOf abs:ArtificieleLaag .
+
+abs:RHZModule a owl:Class .
+
+abs:AndereLaag a owl:Class ;
+    rdfs:subClassOf abs:Laag,
+        abs:LaagProductidentificatiecode .
+
+abs:ConstructiefObject a owl:Class ;
+    rdfs:subClassOf abs:ConstructieElement .
+
+abs:ConstructieElement a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+imel:NaampadObject a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+abs:SerienummerObject a owl:Class .
+
+imel:DirectioneleRelatie a owl:Class ;
+    rdfs:subClassOf imel:RelatieObject .
+
+abs:Proef a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+imel:AIMObject a owl:Class ;
+    rdfs:subClassOf imel:AIMDBStatus,
+        imel:AIMToestand .
+
+imel:AIMNaamObject a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+

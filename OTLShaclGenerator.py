@@ -1,4 +1,6 @@
+import concurrent
 import os
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from rdflib import Graph, Namespace, URIRef, RDF, RDFS, OWL, Literal, SH, BNode, SKOS
 
@@ -48,6 +50,9 @@ class OTLShaclGenerator:
         enum_rows = OTLShaclGenerator.read_enums_from_reader(reader=reader)
         g = OTLShaclGenerator.add_enums_to_graph(g=g, rows=enum_rows)
 
+        # relation
+        # TODO
+
         g.serialize(format='turtle', destination=shacl_path)
         h.serialize(format='turtle', destination=ont_path)
 
@@ -70,7 +75,7 @@ class OTLShaclGenerator:
             verschillende Standaardbestekken 250, 260 en 270.''')))
         b = BNode()
         g.add((URIRef('https://wegenenverkeer.data.vlaanderen.be'), SH.declare, b))
-        g.add((b, SH.prefix, Literal('awv')))  # TODO ??
+        g.add((b, SH.prefix, Literal('awv')))  # TODO Verify this prefix is ok
         g.add((b, SH.namespace, URIRef('https://wegenenverkeer.data.vlaanderen.be')))
 
         g.bind('asset', 'https://data.awvvlaanderen.be/id/asset/')
@@ -238,21 +243,27 @@ class OTLShaclGenerator:
             '''SELECT name, uri, label_nl, codelist, deprecated_version FROM OSLOEnumeration;''', params={})
 
     @staticmethod
+    def add_enum_to_graph(enum_row: tuple, g: Graph):
+        subjects = g.subjects(predicate=RDFS.comment, object=URIRef(enum_row[1]))
+        for subj in subjects:
+            enum_values = OTLShaclGenerator.get_enum_values_from_graph(enum_row[0])
+            if enum_values is not None:
+                enum_node_list = []
+                for enum_value in enum_values:
+                    list_item_node = BNode()
+                    enum_node_list.append(list_item_node)
+                    g.add((list_item_node, RDF.first, enum_value))
+                for index, node in enumerate(enum_node_list[0:-1]):
+                    g.add((enum_node_list[index], RDF.rest, enum_node_list[index + 1]))
+                g.add((enum_node_list[-1], RDF.rest, RDF.nil))
+                g.add((subj, URIRef('http://www.w3.org/ns/shacl#in'), enum_node_list[0]))
+
+    @staticmethod
     def add_enums_to_graph(g: Graph, rows: [tuple]) -> Graph:
-        for enum_row in rows:
-            subjects = g.subjects(predicate=RDFS.comment, object=URIRef(enum_row[1]))
-            for subj in subjects:
-                enum_values = OTLShaclGenerator.get_enum_values_from_graph(enum_row[0])
-                if enum_values is not None:
-                    enum_node_list = []
-                    for enum_value in enum_values:
-                        list_item_node = BNode()
-                        enum_node_list.append(list_item_node)
-                        g.add((list_item_node, RDF.first, enum_value))
-                    for index, node in enumerate(enum_node_list[0:-1]):
-                        g.add((enum_node_list[index], RDF.rest, enum_node_list[index + 1]))
-                    g.add((enum_node_list[-1], RDF.rest, RDF.nil))
-                    g.add((subj, URIRef('http://www.w3.org/ns/shacl#in'), enum_node_list[0]))
+        executor = ThreadPoolExecutor(4)
+        futures = [executor.submit(OTLShaclGenerator.add_enum_to_graph, enum_row=enum_row, g=g)
+                   for enum_row in rows]
+        concurrent.futures.wait(futures)
 
         return g
 
