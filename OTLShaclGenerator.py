@@ -368,29 +368,60 @@ class OTLShaclGenerator:
 
     @staticmethod
     def add_relations_to_graph(g: Graph, rows: [tuple]):
-        row = rows[0]
 
-        g.add((URIRef(row[4] + 'RelationConstraint'), RDF.type, SH.NodeShape))
-        g.add((URIRef(row[4] + 'RelationConstraint'), SH.targetClass, URIRef(row[4])))
-
-        bron_uri_ref = URIRef(row[2])
-        doel_uri_ref = URIRef(row[3])
+        g.add((URIRef('RelatieObjectConstraint'), RDF.type, SH.NodeShape))
+        g.add((URIRef('RelatieObjectConstraint'), SH.targetClass,
+               URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#RelatieObject')))
 
         bron_node = BNode()
         doel_node = BNode()
 
         g.add((bron_node, SH.path,
                URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#RelatieObject.bron')))
-        g.add((bron_node, URIRef('http://www.w3.org/ns/shacl#class'), bron_uri_ref))
         g.add((bron_node, SH.minCount, Literal(1)))
         g.add((doel_node, SH.path,
                URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#RelatieObject.doel')))
-        g.add((doel_node, URIRef('http://www.w3.org/ns/shacl#class'), doel_uri_ref))
         g.add((doel_node, SH.minCount, Literal(1)))
-
 
         lijst = [bron_node, doel_node]
         and_node_list = OTLShaclGenerator.create_shacl_list(lijst, g)
-        g.add((URIRef(row[4] + 'RelationConstraint'), URIRef('http://www.w3.org/ns/shacl#and'), and_node_list[0]))
+        g.add((URIRef('RelatieObjectConstraint'), URIRef('http://www.w3.org/ns/shacl#and'), and_node_list[0]))
+
+        relatie_dict = {}
+        for row in rows:
+            if row[4] not in relatie_dict:
+                relatie_dict[row[4]] = {}
+            if row[2] not in relatie_dict[row[4]]:
+                relatie_dict[row[4]][row[2]] = [row[3]]
+            else:
+                relatie_dict[row[4]][row[2]].append(row[3])
+
+        for relation_uri in relatie_dict:
+            g.add((URIRef(relation_uri + 'RelationConstraint'), RDF.type, SH.NodeShape))
+            g.add((URIRef(relation_uri + 'RelationConstraint'), SH.targetClass, URIRef(relation_uri)))
+            or_node_list = []
+            for bron, doelen in relatie_dict[relation_uri].items():
+                for doel in doelen:
+                    and_node = BNode()
+                    or_node_list.append(and_node)
+                    bron_node = BNode()
+                    doel_node = BNode()
+
+                    g.add((bron_node, SH.path,
+                           URIRef(
+                               'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#RelatieObject.bron')))
+                    g.add((bron_node, URIRef('http://www.w3.org/ns/shacl#class'), URIRef(bron)))
+                    g.add((doel_node, SH.path,
+                           URIRef(
+                               'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#RelatieObject.doel')))
+                    g.add((doel_node, URIRef('http://www.w3.org/ns/shacl#class'), URIRef(doel)))
+                    and_node_list = [bron_node, doel_node]
+                    and_node_list = OTLShaclGenerator.create_shacl_list(and_node_list, g)
+                    g.add((and_node, URIRef('http://www.w3.org/ns/shacl#and'), and_node_list[0]))
+
+
+            or_node_list = OTLShaclGenerator.create_shacl_list(or_node_list, g)
+
+            g.add((URIRef(relation_uri + 'RelationConstraint'), URIRef('http://www.w3.org/ns/shacl#or'), or_node_list[0]))
 
         return g
