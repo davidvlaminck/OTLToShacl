@@ -53,7 +53,8 @@ class OTLShaclGenerator:
         g = OTLShaclGenerator.add_enums_to_graph(g=g, rows=enum_rows)
 
         # relation
-        # TODO
+        relation_rows = OTLShaclGenerator.read_relations_from_reader(reader=reader)
+        g = OTLShaclGenerator.add_relations_to_graph(g=g, rows=relation_rows)
 
         g.serialize(format='turtle', destination=shacl_path)
         h.serialize(format='turtle', destination=ont_path)
@@ -262,16 +263,6 @@ class OTLShaclGenerator:
                 or_list = OTLShaclGenerator.create_shacl_list(or_node_list, g)
                 g.add((URIRef(union_type_uri + 'UnionConstraint'), URIRef('http://www.w3.org/ns/shacl#or'), or_list[0]))
 
-                # enum_node_list = []
-                # for enum_value in enum_values:
-                #     list_item_node = BNode()
-                #     enum_node_list.append(list_item_node)
-                #     g.add((list_item_node, RDF.first, enum_value))
-                # for index, node in enumerate(enum_node_list[0:-1]):
-                #     g.add((enum_node_list[index], RDF.rest, enum_node_list[index + 1]))
-                # g.add((enum_node_list[-1], RDF.rest, RDF.nil))
-                # g.add((subj, URIRef('http://www.w3.org/ns/shacl#in'), enum_node_list[0]))
-
         return g
 
     @staticmethod
@@ -368,3 +359,57 @@ class OTLShaclGenerator:
     @staticmethod
     def add_union_attributes_to_graph(g: Graph, rows: [tuple]) -> Graph:
         return OTLShaclGenerator.add_attributes_to_graph(g, rows, 'union')
+
+    @staticmethod
+    def read_relations_from_reader(reader) -> [tuple]:
+        return reader.perform_read_query(
+            '''SELECT bron_overerving, doel_overerving, bron_uri, doel_uri, uri, richting, usagenote_nl, 
+            deprecated_version FROM OSLORelaties;''', params={})
+
+    @staticmethod
+    def add_relations_to_graph(g: Graph, rows: [tuple]):
+        row = rows[0]
+
+        g.add((URIRef(row[4] + 'RelationConstraint'), RDF.type, SH.NodeShape))
+        g.add((URIRef(row[4] + 'RelationConstraint'), SH.targetClass, URIRef(row[4])))
+
+        bron_uri_ref = URIRef(row[2])
+        doel_uri_ref = URIRef(row[3])
+
+        bron_node = BNode()
+        doel_node = BNode()
+
+        g.add((bron_node, SH.path,
+               URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#RelatieObject.bron')))
+        g.add((bron_node, URIRef('http://www.w3.org/ns/shacl#class'), bron_uri_ref))
+        g.add((bron_node, SH.minCount, Literal(1)))
+        g.add((doel_node, SH.path,
+               URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#RelatieObject.doel')))
+        g.add((doel_node, URIRef('http://www.w3.org/ns/shacl#class'), doel_uri_ref))
+        g.add((doel_node, SH.minCount, Literal(1)))
+
+
+        lijst = [bron_node, doel_node]
+        and_node_list = OTLShaclGenerator.create_shacl_list(lijst, g)
+        g.add((URIRef(row[4] + 'RelationConstraint'), URIRef('http://www.w3.org/ns/shacl#and'), and_node_list[0]))
+
+        return g
+        # for union_type_uri, attribute_list in union_dict.items():
+        #     g.add((URIRef(union_type_uri + 'UnionConstraint'), RDF.type, SH.NodeShape))
+        #     g.add((URIRef(union_type_uri + 'UnionConstraint'), RDFS.comment,
+        #            Literal(f'union constraint of {union_type_uri}')))
+        #     g.add((URIRef(union_type_uri + 'UnionConstraint'), SH.targetObjectsOf, URIRef(union_type_uri)))
+        #
+        #     or_node_list = []
+        #
+        #     # 0 maxcount node
+        #     and_node_list = []
+        #     for attribute in attribute_list:
+        #         node = BNode()
+        #         and_node_list.append(node)
+        #         g.add((node, SH.path, URIRef(attribute)))
+        #         g.add((node, SH.maxCount, Literal(0)))
+        #     zero_node_list = OTLShaclGenerator.create_shacl_list(and_node_list, g)
+        #     zero_node = BNode()
+        #     g.add((zero_node, URIRef('http://www.w3.org/ns/shacl#and'), zero_node_list[0]))
+        #     or_node_list.append(zero_node)

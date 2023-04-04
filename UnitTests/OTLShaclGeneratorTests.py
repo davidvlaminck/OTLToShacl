@@ -34,10 +34,11 @@ class OTLShaclGeneratorTests(TestCase):
             OTLShaclGenerator.generate_shacl_from_otl(Path(''), shacl_path=Path(), ont_path=Path())
 
     def tearDown(self) -> None:
-        if os.path.exists('generated_shacl.ttl'):
-            os.unlink(Path('generated_shacl.ttl'))
-        if os.path.exists('generated_ont.ttl'):
-            os.unlink(Path('generated_ont.ttl'))
+        pass
+        # if os.path.exists('generated_shacl.ttl'):
+        #     os.unlink(Path('generated_shacl.ttl'))
+        # if os.path.exists('generated_ont.ttl'):
+        #     os.unlink(Path('generated_ont.ttl'))
 
     def test_generate_subset_and_test_data_correct_boolean(self):
         data_g, shacl, ont, asset_ref = generate_data_shacl_ont_asset_for_testclass()
@@ -614,3 +615,58 @@ class OTLShaclGeneratorTests(TestCase):
 
         self.assertTrue((union_string_ref, SH.nodeKind, SH.Literal) in g)
         self.assertTrue((union_string_ref, SH.datatype, XSD.string) in g)
+
+    def test_generate_subset_and_test_data_relations(self):
+        with self.subTest('correct use of relation'):
+            data_g, shacl, ont, asset_ref = generate_data_shacl_ont_asset_for_testclass()
+            data_g.add((asset_ref,
+                        URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testBooleanField'),
+                        Literal(True)))
+            asset_2_ref = URIRef('https://data.awvvlaanderen.be/id/asset/0001')
+            data_g.add((asset_2_ref, RDF.type,
+                        URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AnotherTestClass')))
+            voedt_ref = URIRef('https://data.awvvlaanderen.be/id/asset/0002')
+            data_g.add((voedt_ref, RDF.type,
+                        URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#Voedt')))
+            data_g.add((voedt_ref,
+                        URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#RelatieObject.bron'),
+                        asset_ref))
+            data_g.add((voedt_ref,
+                        URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#RelatieObject.doel'),
+                        asset_2_ref))
+
+            r = validate(data_g,
+                         shacl_graph=shacl,
+                         ont_graph=ont,
+                         allow_infos=True,
+                         allow_warnings=True)
+            conforms, results_graph, results_text = r
+            print(results_text)
+            self.assertTrue(conforms)
+
+        with self.subTest('incorrect use of relation'):
+            data_g, shacl, ont, asset_ref = generate_data_shacl_ont_asset_for_testclass()
+            data_g.add((asset_ref,
+                        URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testBooleanField'),
+                        Literal(True)))
+            asset_2_ref = URIRef('https://data.awvvlaanderen.be/id/asset/0001')
+            data_g.add((asset_2_ref, RDF.type,
+                        URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AnotherTestClass')))
+            voedt_ref = URIRef('https://data.awvvlaanderen.be/id/asset/0002')
+            data_g.add((voedt_ref, RDF.type,
+                        URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#Voedt')))
+            data_g.add((voedt_ref,
+                        URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#RelatieObject.bron'),
+                        asset_2_ref))
+            data_g.add((voedt_ref,
+                        URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#RelatieObject.doel'),
+                        asset_ref))
+
+            r = validate(data_g,
+                         shacl_graph=shacl,
+                         ont_graph=ont,
+                         allow_infos=True,
+                         allow_warnings=True)
+            conforms, results_graph, results_text = r
+            print(results_text)
+            self.assertFalse(conforms)
