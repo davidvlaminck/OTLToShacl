@@ -419,6 +419,7 @@ onderdeel:AllCasesTestClass.testTimeFieldShape a sh:PropertyShape ;
     sh:nodeKind sh:Literal ;
     sh:path onderdeel:AllCasesTestClass.testTimeField .
 
+
 onderdeel:AllCasesTestClass.testUnionTypeMetKardShape a sh:PropertyShape ;
     rdfs:label "Test UnionTypeMetKard" ;
     rdfs:comment imel:DtuTestUnionType ;
@@ -428,6 +429,35 @@ onderdeel:AllCasesTestClass.testUnionTypeMetKardShape a sh:PropertyShape ;
     sh:path onderdeel:AllCasesTestClass.testUnionTypeMetKard ;
     sh:property imel:DtuTestUnionType.unionKwantWrdShape,
         imel:DtuTestUnionType.unionStringShape .
+
+
+imel:DtuTestUnionType.unionKwantWrdUnionConstraintShape
+    a sh:NodeShape;
+    sh:and (
+		[
+            sh:path imel:DtuTestUnionType.unionKwantWrd ;
+            sh:minCount 1 ;
+        ]
+		[
+			sh:path imel:DtuTestUnionType.unionString ;
+			sh:maxCount 0 ;
+		]
+	) .
+
+
+imel:DtuTestUnionType.unionStringUnionConstraintShape
+    a sh:NodeShape;
+    sh:and (
+		[
+            sh:path imel:DtuTestUnionType.unionKwantWrd ;
+            sh:minCount 0 ;
+        ]
+		[
+			sh:path imel:DtuTestUnionType.unionString ;
+			sh:maxCount 1 ;
+		]
+	) .
+
 
 onderdeel:AllCasesTestClass.testUnionTypeShape a sh:PropertyShape ;
     rdfs:label "Test UnionType" ;
@@ -439,6 +469,13 @@ onderdeel:AllCasesTestClass.testUnionTypeShape a sh:PropertyShape ;
     sh:path onderdeel:AllCasesTestClass.testUnionType ;
     sh:property imel:DtuTestUnionType.unionKwantWrdShape,
         imel:DtuTestUnionType.unionStringShape .
+
+onderdeel:AllCasesTestClass.testUnionTypeConstraintShape a sh:NodeShape ;
+    sh:targetClass onderdeel:AllCasesTestClass.testUnionTypeShape ;
+    sh:or (
+		imel:DtuTestUnionType.unionKwantWrdUnionConstraintShape
+        imel:DtuTestUnionType.unionStringUnionConstraintShape
+	) .
 
 onderdeel:AnotherTestClass.deprecatedStringShape a sh:PropertyShape ;
     rdfs:label "Deprecated Tekstveld" ;

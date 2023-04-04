@@ -10,21 +10,28 @@ from OTLShaclGenerator import OTLShaclGenerator
 from SQLDbReader import SQLDbReader
 
 
+def generate_data_shacl_ont_asset_for_testclass(gerenate_new: bool = True):
+    if gerenate_new:
+        shacl, ont = OTLShaclGenerator.generate_shacl_from_otl(subset_path=Path('OTL_AllCasesTestClass.db'),
+                                                               shacl_path=Path('generated_shacl.ttl'),
+                                                               ont_path=Path('generated_ont.ttl'))
+    else:
+        shacl = Graph()
+        shacl.parse(Path('generated_shacl.ttl'))
+        ont = Graph()
+        ont.parse(Path('generated_ont.ttl'))
+    data_g = Graph()
+    asset_ref = URIRef('https://data.awvvlaanderen.be/id/asset/0000')
+    data_g.add((asset_ref, RDF.type,
+                URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass')))
+
+    return data_g, shacl, ont, asset_ref
+
+
 class OTLShaclGeneratorTests(TestCase):
     def test_create_without_subset(self):
         with self.assertRaises(FileNotFoundError):
             OTLShaclGenerator.generate_shacl_from_otl(Path(''), shacl_path=Path(), ont_path=Path())
-
-    def generate_data_shacl_ont_asset_for_testclass(self):
-        shacl, ont = OTLShaclGenerator.generate_shacl_from_otl(subset_path=Path('OTL_AllCasesTestClass.db'),
-                                                               shacl_path=Path('generated_shacl.ttl'),
-                                                               ont_path=Path('generated_ont.ttl'))
-        data_g = Graph()
-        asset_ref = URIRef('https://data.awvvlaanderen.be/id/asset/0000')
-        data_g.add((asset_ref, RDF.type,
-                    URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass')))
-
-        return data_g, shacl, ont, asset_ref
 
     def tearDown(self) -> None:
         if os.path.exists('generated_shacl.ttl'):
@@ -33,7 +40,7 @@ class OTLShaclGeneratorTests(TestCase):
             os.unlink(Path('generated_ont.ttl'))
 
     def test_generate_subset_and_test_data_correct_boolean(self):
-        data_g, shacl, ont, asset_ref = self.generate_data_shacl_ont_asset_for_testclass()
+        data_g, shacl, ont, asset_ref = generate_data_shacl_ont_asset_for_testclass()
         data_g.add((asset_ref,
                     URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testBooleanField'),
                     Literal(True)))
@@ -46,7 +53,7 @@ class OTLShaclGeneratorTests(TestCase):
         self.assertTrue(conforms)
 
     def test_generate_subset_and_test_data_incorrect_boolean(self):
-        data_g, shacl, ont, asset_ref = self.generate_data_shacl_ont_asset_for_testclass()
+        data_g, shacl, ont, asset_ref = generate_data_shacl_ont_asset_for_testclass()
         data_g.add((asset_ref,
                     URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testBooleanField'),
                     Literal(1)))
@@ -59,7 +66,7 @@ class OTLShaclGeneratorTests(TestCase):
         self.assertFalse(conforms)
 
     def test_generate_subset_and_test_data_correct_inherited_boolean(self):
-        data_g, shacl, ont, asset_ref = self.generate_data_shacl_ont_asset_for_testclass()
+        data_g, shacl, ont, asset_ref = generate_data_shacl_ont_asset_for_testclass()
         data_g.add((asset_ref,
                     URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#AIMDBStatus.isActief'),
                     Literal(True)))
@@ -72,7 +79,7 @@ class OTLShaclGeneratorTests(TestCase):
         self.assertTrue(conforms)
 
     def test_generate_subset_and_test_data_incorrect_inherited_boolean(self):
-        data_g, shacl, ont, asset_ref = self.generate_data_shacl_ont_asset_for_testclass()
+        data_g, shacl, ont, asset_ref = generate_data_shacl_ont_asset_for_testclass()
         data_g.add((asset_ref,
                     URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#AIMDBStatus.isActief'),
                     Literal(1)))
@@ -85,7 +92,7 @@ class OTLShaclGeneratorTests(TestCase):
         self.assertFalse(conforms)
 
     def test_generate_subset_and_test_data_correct_decimal(self):
-        data_g, shacl, ont, asset_ref = self.generate_data_shacl_ont_asset_for_testclass()
+        data_g, shacl, ont, asset_ref = generate_data_shacl_ont_asset_for_testclass()
         data_g.add((asset_ref,
                     URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testDecimalField'),
                     Literal('2.5', datatype=XSD.decimal)))
@@ -98,7 +105,7 @@ class OTLShaclGeneratorTests(TestCase):
         self.assertTrue(conforms)
 
     def test_generate_subset_and_test_data_correct_enum(self):
-        data_g, shacl, ont, asset_ref = self.generate_data_shacl_ont_asset_for_testclass()
+        data_g, shacl, ont, asset_ref = generate_data_shacl_ont_asset_for_testclass()
         data_g.add((asset_ref,
                     URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testKeuzelijst'),
                     URIRef('https://wegenenverkeer.data.vlaanderen.be/id/concept/KlTestKeuzelijst/waarde-1')))
@@ -111,7 +118,7 @@ class OTLShaclGeneratorTests(TestCase):
         self.assertTrue(conforms)
 
     def test_generate_subset_and_test_data_incorrect_enum(self):
-        data_g, shacl, ont, asset_ref = self.generate_data_shacl_ont_asset_for_testclass()
+        data_g, shacl, ont, asset_ref = generate_data_shacl_ont_asset_for_testclass()
         data_g.add((asset_ref,
                     URIRef('https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#AllCasesTestClass.testKeuzelijst'),
                     URIRef('https://wegenenverkeer.data.vlaanderen.be/id/concept/KlTestKeuzelijst/waarde-7')))
@@ -124,7 +131,7 @@ class OTLShaclGeneratorTests(TestCase):
         self.assertFalse(conforms)
 
     def test_generate_subset_and_test_data_correct_kwantWrd(self):
-        data_g, shacl, ont, asset_ref = self.generate_data_shacl_ont_asset_for_testclass()
+        data_g, shacl, ont, asset_ref = generate_data_shacl_ont_asset_for_testclass()
         kwant_wrd_ref = BNode()
         data_g.add((
             asset_ref,
@@ -147,7 +154,7 @@ class OTLShaclGeneratorTests(TestCase):
         self.assertTrue(conforms)
 
     def test_generate_subset_and_test_data_incorrect_kwantWrd(self):
-        data_g, shacl, ont, asset_ref = self.generate_data_shacl_ont_asset_for_testclass()
+        data_g, shacl, ont, asset_ref = generate_data_shacl_ont_asset_for_testclass()
         kwant_wrd_ref = BNode()
         data_g.add((
             asset_ref,
@@ -171,7 +178,7 @@ class OTLShaclGeneratorTests(TestCase):
         self.assertTrue('Results (2)' in results_text)
 
     def test_generate_subset_and_test_data_correct_union(self):
-        data_g, shacl, ont, asset_ref = self.generate_data_shacl_ont_asset_for_testclass()
+        data_g, shacl, ont, asset_ref = generate_data_shacl_ont_asset_for_testclass()
         kwant_wrd_ref = BNode()
         data_g.add((
             asset_ref,
@@ -189,9 +196,8 @@ class OTLShaclGeneratorTests(TestCase):
         conforms, results_graph, results_text = r
         self.assertTrue(conforms)
 
-    @unittest.skip('union constraint not yet implemented')
     def test_generate_subset_and_test_data_incorrect_union(self):
-        data_g, shacl, ont, asset_ref = self.generate_data_shacl_ont_asset_for_testclass()
+        data_g, shacl, ont, asset_ref = generate_data_shacl_ont_asset_for_testclass(False)
         kwant_wrd_ref = BNode()
         data_g.add((
             asset_ref,
