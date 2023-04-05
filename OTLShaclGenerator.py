@@ -322,7 +322,7 @@ class OTLShaclGenerator:
 
     @staticmethod
     def add_enums_to_graph(g: Graph, rows: [tuple]) -> Graph:
-        executor = ThreadPoolExecutor(4)
+        executor = ThreadPoolExecutor(10)
         futures = [executor.submit(OTLShaclGenerator.add_enum_to_graph, enum_row=enum_row, g=g)
                    for enum_row in rows]
         concurrent.futures.wait(futures)
@@ -364,7 +364,7 @@ class OTLShaclGenerator:
     def read_relations_from_reader(reader) -> [tuple]:
         return reader.perform_read_query(
             '''SELECT bron_overerving, doel_overerving, bron_uri, doel_uri, uri, richting, usagenote_nl, 
-            deprecated_version FROM OSLORelaties;''', params={})
+            deprecated_version FROM OSLORelaties WHERE bron_overerving = '' And doel_overerving = '';''', params={})
 
     @staticmethod
     def add_relations_to_graph(g: Graph, rows: [tuple]):
@@ -396,32 +396,36 @@ class OTLShaclGenerator:
             else:
                 relatie_dict[row[4]][row[2]].append(row[3])
 
-        for relation_uri in relatie_dict:
-            g.add((URIRef(relation_uri + 'RelationConstraint'), RDF.type, SH.NodeShape))
-            g.add((URIRef(relation_uri + 'RelationConstraint'), SH.targetClass, URIRef(relation_uri)))
-            or_node_list = []
-            for bron, doelen in relatie_dict[relation_uri].items():
-                for doel in doelen:
-                    and_node = BNode()
-                    or_node_list.append(and_node)
-                    bron_node = BNode()
-                    doel_node = BNode()
-
-                    g.add((bron_node, SH.path,
-                           URIRef(
-                               'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#RelatieObject.bron')))
-                    g.add((bron_node, URIRef('http://www.w3.org/ns/shacl#class'), URIRef(bron)))
-                    g.add((doel_node, SH.path,
-                           URIRef(
-                               'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#RelatieObject.doel')))
-                    g.add((doel_node, URIRef('http://www.w3.org/ns/shacl#class'), URIRef(doel)))
-                    and_node_list = [bron_node, doel_node]
-                    and_node_list = OTLShaclGenerator.create_shacl_list(and_node_list, g)
-                    g.add((and_node, URIRef('http://www.w3.org/ns/shacl#and'), and_node_list[0]))
-
-
-            or_node_list = OTLShaclGenerator.create_shacl_list(or_node_list, g)
-
-            g.add((URIRef(relation_uri + 'RelationConstraint'), URIRef('http://www.w3.org/ns/shacl#or'), or_node_list[0]))
+        executor = ThreadPoolExecutor(10)
+        futures = [executor.submit(OTLShaclGenerator.add_relation_contraints, relatie_dict=relatie_dict, g=g,
+                                   relation_uri=relation_uri)
+                   for relation_uri in relatie_dict]
+        concurrent.futures.wait(futures)
 
         return g
+
+    @staticmethod
+    def add_relation_contraints(g, relatie_dict, relation_uri):
+        g.add((URIRef(relation_uri + 'RelationConstraint'), RDF.type, SH.NodeShape))
+        g.add((URIRef(relation_uri + 'RelationConstraint'), SH.targetClass, URIRef(relation_uri)))
+        or_node_list = []
+        for bron, doelen in relatie_dict[relation_uri].items():
+            for doel in doelen:
+                and_node = BNode()
+                or_node_list.append(and_node)
+                bron_node = BNode()
+                doel_node = BNode()
+
+                g.add((bron_node, SH.path,
+                       URIRef(
+                           'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#RelatieObject.bron')))
+                g.add((bron_node, URIRef('http://www.w3.org/ns/shacl#class'), URIRef(bron)))
+                g.add((doel_node, SH.path,
+                       URIRef(
+                           'https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#RelatieObject.doel')))
+                g.add((doel_node, URIRef('http://www.w3.org/ns/shacl#class'), URIRef(doel)))
+                and_node_list = [bron_node, doel_node]
+                and_node_list = OTLShaclGenerator.create_shacl_list(and_node_list, g)
+                g.add((and_node, URIRef('http://www.w3.org/ns/shacl#and'), and_node_list[0]))
+        or_node_list = OTLShaclGenerator.create_shacl_list(or_node_list, g)
+        g.add((URIRef(relation_uri + 'RelationConstraint'), URIRef('http://www.w3.org/ns/shacl#or'), or_node_list[0]))
