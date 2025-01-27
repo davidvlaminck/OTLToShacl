@@ -33,7 +33,7 @@ def get_values_from_graph(keuzelijstnaam):
         return g.subjects(predicate=RDF.type, object=SKOS.Concept)
 
     except:
-        print('failed getting the ttl')
+        print(f'failed getting the ttl for {keuzelijstnaam}')
 
 
 def process_enum_row(enum_row):
