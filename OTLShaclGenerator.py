@@ -295,7 +295,7 @@ class OTLShaclGenerator:
             try:
                 g.parse(keuzelijst_link, format="turtle")
             except:
-                print('failed getting the ttl')
+                print(f'failed getting the ttl for {keuzelijstnaam}')
 
         return g.subjects(predicate=RDF.type, object=SKOS.Concept)
 
