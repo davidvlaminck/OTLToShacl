@@ -8,8 +8,8 @@ from OTLShaclGenerator import OTLShaclGenerator
 
 
 if __name__ == '__main__':
-    subset_path = Path('OTL2.6.db')
-    shacl_path = Path('generated_shacl_otl_2.6.ttl')
-    ont_path = Path('generated_ont_otl_2.6.ttl')
+    subset_path = Path('OTL 2.13.db')
+    shacl_path = Path('generated_shacl_otl_2.13.ttl')
+    ont_path = Path('generated_ont_otl_2.13.ttl')
     shacl, ont = OTLShaclGenerator.generate_shacl_from_otl(subset_path=subset_path, shacl_path=shacl_path,
                                                            ont_path=ont_path)
