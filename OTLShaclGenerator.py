@@ -309,7 +309,7 @@ class OTLShaclGenerator:
 
     @staticmethod
     def add_enums_to_graph(g: Graph, rows: [tuple]) -> Graph:
-        with OTLEnumerationCreator(oslo_collector=None, env='dev') as enum_creator:
+        with OTLEnumerationCreator(oslo_collector=None, env='prd') as enum_creator:
             enum_creator.download_unzip_and_parse_to_dict(enum_creator.env)
             executor = ThreadPoolExecutor(1)
             futures = [executor.submit(OTLShaclGenerator.add_enum_to_graph, enum_row=enum_row, g=g, enum_creator=enum_creator)
