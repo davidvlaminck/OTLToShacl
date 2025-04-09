@@ -9,7 +9,9 @@
 },
 "@graph": [
         {
-            "imel:AIMToestand.toestand": "kl:KlAIMToestand/in-gebruik",
+            "imel:AIMToestand.toestand": {
+                "@id": "kl:KlAIMToestand/in-gebruik"
+            },
             "imel:AIMObject.assetId": {
                 "imel:DtcIdentificator.identificator": "BORD_1"
             },
@@ -32,12 +34,14 @@
             "@id": "asset:BORD_1"
         },
         {
-            "imel:AIMToestand.toestand": "kl:KlAIMToestand/in-gebruik",
+            "imel:AIMToestand.toestand": {
+                "@id": "kl:KlAIMToestand/in-gebruik"
+            },
             "imel:AIMObject.assetId": {
                 "imel:DtcIdentificator.identificator": "OMV_1"
             },
             "onderdeel:Omvormer.merk": {
-                "@id": "https://wegenenverkeer.data.vlaanderen.be/id/concept/KlOmvormerMerk/bosch"
+                "@id": "kl:KlOmvormerMerk/bosch"
             },
             "@type": "onderdeel:Omvormer",
             "imel:AIMObject.typeURI": "onderdeel:Omvormer",
