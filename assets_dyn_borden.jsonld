@@ -1,0 +1,65 @@
+{
+    "@context": {
+    "asset": "https://data.awvvlaanderen.be/id/asset/",
+    "assetrelatie": "https://data.awvvlaanderen.be/id/assetrelatie/",
+    "onderdeel": "https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#",
+    "imel": "https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#",
+    "kl": "https://wegenenverkeer.data.vlaanderen.be/id/concept/",
+    "abs": "https://wegenenverkeer.data.vlaanderen.be/ns/abstracten#"
+},
+"@graph": [
+        {
+            "imel:AIMToestand.toestand": "kl:KlAIMToestand/in-gebruik",
+            "imel:AIMObject.assetId": {
+                "imel:DtcIdentificator.identificator": "BORD_1"
+            },
+            "imel:AIMNaamObject.naam": "A01.1",
+            "abs:Verkeersbord.afmeting": {
+                "onderdeel:DtuAfmetingVerkeersbord.vierhoekig": {
+                    "imel:DtcAfmetingBxhInMm.breedte": {
+                        "imel:KwantWrdInMillimeter.waarde": 1000.0
+                    },
+                    "imel:DtcAfmetingBxhInMm.hoogte": {
+                        "imel:KwantWrdInMillimeter.waarde": 1500.0
+                    }
+                }
+            },
+            "abs:LEDBord.ipAdres": {
+                "imel:DteIPv4Adres.waarde": "11.111.111.11"
+            },
+            "@type": "onderdeel:DynBordRSS",
+            "imel:AIMObject.typeURI": "onderdeel:DynBordRSS",
+            "@id": "asset:BORD_1"
+        },
+        {
+            "imel:AIMToestand.toestand": "kl:KlAIMToestand/in-gebruik",
+            "imel:AIMObject.assetId": {
+                "imel:DtcIdentificator.identificator": "OMV_1"
+            },
+            "@type": "onderdeel:Omvormer",
+            "imel:AIMObject.typeURI": "onderdeel:Omvormer",
+            "@id": "asset:OMV_1"
+        },
+        {
+            "imel:DavieRelatieAttributes.bron": {
+                "imel:AIMObject.typeURI": "onderdeel:DynBordRSS"
+            },
+            "imel:DavieRelatieAttributes.doel": {
+                "imel:AIMObject.typeURI": "onderdeel:Omvormer"
+            },
+            "imel:RelatieObject.assetId": {
+                "imel:DtcIdentificator.identificator": "Sturing_-_BORD_1_-_OMV_1",
+                "imel:DtcIdentificator.toegekendDoor": "OTLMOW"
+            },
+            "imel:RelatieObject.bronAssetId": {
+                "imel:DtcIdentificator.identificator": "BORD_1"
+            },
+            "imel:RelatieObject.doelAssetId": {
+                "imel:DtcIdentificator.identificator": "OMV_1"
+            },
+            "@type": "onderdeel:Sturing",
+            "imel:AIMObject.typeURI": "onderdeel:Sturing",
+            "@id": "assetrelatie:Sturing_-_BORD_1_-_OMV_1"
+        }
+    ]
+}

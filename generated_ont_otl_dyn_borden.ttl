@@ -1,0 +1,245 @@
+@prefix abs: <https://wegenenverkeer.data.vlaanderen.be/ns/abstracten#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix imel: <https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#> .
+@prefix installatie: <https://wegenenverkeer.data.vlaanderen.be/ns/installatie#> .
+@prefix onderdeel: <https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+dcterms:Agent a owl:Class ;
+    rdfs:subClassOf imel:AIMDBStatus,
+        imel:AIMVersie .
+
+abs:BekledingComponent a owl:Class ;
+    rdfs:subClassOf abs:AanhorighedenBrug,
+        abs:AanhorigheidKoker,
+        imel:AIMObject .
+
+abs:ConstructieElement a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+abs:Draagconstructie a owl:Class .
+
+abs:SoftwareToegang a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+imel:Bijlage a owl:Class ;
+    rdfs:subClassOf abs:AbstracteAanvullendeGeometrie .
+
+imel:Derdenobject a owl:Class ;
+    rdfs:subClassOf imel:AIMDBStatus,
+        imel:AIMToestand,
+        imel:AIMVersie .
+
+imel:Toegangsprocedure a owl:Class ;
+    rdfs:subClassOf imel:AIMDBStatus,
+        imel:AIMToestand,
+        imel:AIMVersie .
+
+installatie:Gebouw a owl:Class ;
+    rdfs:subClassOf abs:Behuizing .
+
+installatie:Matrixbord a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+installatie:VerkeersbordConcept a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+installatie:VerkeersbordVerkeersteken a owl:Class ;
+    rdfs:subClassOf abs:Verkeersteken .
+
+onderdeel:AanvullendeGeometrie a owl:Class ;
+    rdfs:subClassOf abs:AbstracteAanvullendeGeometrie .
+
+onderdeel:Bevestiging a owl:Class ;
+    rdfs:subClassOf imel:NietDirectioneleRelatie .
+
+onderdeel:Bevestigingsbeugel a owl:Class ;
+    rdfs:subClassOf abs:BevestigingGC,
+        imel:AIMNaamObject .
+
+onderdeel:Bijlage a owl:Class ;
+    rdfs:subClassOf abs:AbstracteAanvullendeGeometrie .
+
+onderdeel:DynBordExternePU a owl:Class ;
+    rdfs:subClassOf abs:PU .
+
+onderdeel:DynBordOpMaat a owl:Class ;
+    rdfs:subClassOf abs:LEDBord .
+
+onderdeel:DynBordPK a owl:Class ;
+    rdfs:subClassOf abs:LEDBord .
+
+onderdeel:DynBordRSS a owl:Class ;
+    rdfs:subClassOf abs:LEDBord,
+        abs:SerienummerObject .
+
+onderdeel:DynBordRVMS a owl:Class ;
+    rdfs:subClassOf abs:LEDBord,
+        abs:SerienummerObject .
+
+onderdeel:DynBordVMS a owl:Class ;
+    rdfs:subClassOf abs:LEDBord .
+
+onderdeel:DynBordZ30 a owl:Class ;
+    rdfs:subClassOf abs:LEDBord .
+
+onderdeel:Handbediening a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:HeeftAanvullendeGeometrie a owl:Class ;
+    rdfs:subClassOf imel:DirectioneleRelatie .
+
+onderdeel:HeeftBeheer a owl:Class ;
+    rdfs:subClassOf imel:DirectioneleRelatie .
+
+onderdeel:HeeftBetrokkene a owl:Class ;
+    rdfs:subClassOf imel:DirectioneleRelatie .
+
+onderdeel:HeeftBijlage a owl:Class ;
+    rdfs:subClassOf imel:DirectioneleRelatie .
+
+onderdeel:HeeftNetwerkProtectie a owl:Class ;
+    rdfs:subClassOf imel:DirectioneleRelatie .
+
+onderdeel:HeeftNetwerktoegang a owl:Class ;
+    rdfs:subClassOf imel:DirectioneleRelatie .
+
+onderdeel:HeeftToegangsprocedure a owl:Class ;
+    rdfs:subClassOf imel:DirectioneleRelatie .
+
+onderdeel:Hoogtedetectie a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:HoortBij a owl:Class ;
+    rdfs:subClassOf imel:DirectioneleRelatie .
+
+onderdeel:IsAdmOnderdeelVan a owl:Class ;
+    rdfs:subClassOf imel:DirectioneleRelatie .
+
+onderdeel:IsInspectieVan a owl:Class ;
+    rdfs:subClassOf imel:DirectioneleRelatie .
+
+onderdeel:IsNetwerkECC a owl:Class ;
+    rdfs:subClassOf imel:DirectioneleRelatie .
+
+onderdeel:IsSWGehostOp a owl:Class ;
+    rdfs:subClassOf imel:DirectioneleRelatie .
+
+onderdeel:IsSWOnderdeelVan a owl:Class ;
+    rdfs:subClassOf imel:DirectioneleRelatie .
+
+onderdeel:LigtOp a owl:Class ;
+    rdfs:subClassOf imel:DirectioneleRelatie .
+
+onderdeel:Montagekast a owl:Class ;
+    rdfs:subClassOf abs:Buitenkast .
+
+onderdeel:NetwerkModem a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Netwerkelement a owl:Class ;
+    rdfs:subClassOf abs:RHZModule,
+        imel:NaampadObject .
+
+onderdeel:Netwerkpoort a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Omhult a owl:Class ;
+    rdfs:subClassOf imel:DirectioneleRelatie .
+
+onderdeel:Omvormer a owl:Class ;
+    rdfs:subClassOf abs:RHZModule,
+        imel:AIMNaamObject .
+
+onderdeel:SluitAanOp a owl:Class ;
+    rdfs:subClassOf imel:DirectioneleRelatie .
+
+onderdeel:Stroomkring a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+onderdeel:Sturing a owl:Class ;
+    rdfs:subClassOf imel:NietDirectioneleRelatie .
+
+onderdeel:Voedt a owl:Class ;
+    rdfs:subClassOf imel:DirectioneleRelatie .
+
+onderdeel:VoedtAangestuurd a owl:Class ;
+    rdfs:subClassOf imel:DirectioneleRelatie .
+
+onderdeel:Wegkantkast a owl:Class ;
+    rdfs:subClassOf abs:Buitenkast .
+
+<https://wegenenverkeer.data.vlaanderen.be> a owl:Ontology ;
+    rdfs:comment """Met het programma Open Standaarden voor Linkende Organisaties (OSLO) zet de Vlaamse overheid in op een 
+            éénduidige standaard voor de uitwisseling van informatie. De objecttypenbibliotheek (OTL) specificeert 
+            een implementatiemodel voor de data-uitwisseling gedurende de volledige levenscyclus van onderdelen en 
+            installaties die in brede zin verband houden met wegen en verkeer zoals gespecificeerd in de 
+            verschillende Standaardbestekken 250, 260 en 270.""" ;
+    sh:declare [ sh:namespace <https://wegenenverkeer.data.vlaanderen.be> ;
+            sh:prefix "awv" ] .
+
+abs:AanhorighedenBrug a owl:Class .
+
+abs:AanhorigheidKoker a owl:Class .
+
+abs:BevestigingGC a owl:Class .
+
+abs:Kast a owl:Class ;
+    rdfs:subClassOf abs:Behuizing .
+
+abs:PU a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+abs:Verkeersbord a owl:Class .
+
+abs:Verkeersteken a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+imel:NaampadObject a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+abs:Behuizing a owl:Class ;
+    rdfs:subClassOf imel:AIMNaamObject .
+
+abs:Buitenkast a owl:Class ;
+    rdfs:subClassOf abs:Kast .
+
+abs:RHZModule a owl:Class .
+
+abs:SerienummerObject a owl:Class .
+
+imel:NietDirectioneleRelatie a owl:Class ;
+    rdfs:subClassOf imel:RelatieObject .
+
+imel:RelatieObject a owl:Class ;
+    rdfs:subClassOf imel:AIMDBStatus,
+        imel:AIMVersie .
+
+abs:AbstracteAanvullendeGeometrie a owl:Class ;
+    rdfs:subClassOf imel:AIMDBStatus,
+        imel:AIMToestand,
+        imel:AIMVersie .
+
+imel:AIMObject a owl:Class ;
+    rdfs:subClassOf imel:AIMDBStatus,
+        imel:AIMToestand,
+        imel:AIMVersie .
+
+imel:AIMToestand a owl:Class .
+
+abs:LEDBord a owl:Class ;
+    rdfs:subClassOf abs:Verkeersbord,
+        imel:AIMNaamObject .
+
+imel:AIMDBStatus a owl:Class .
+
+imel:AIMVersie a owl:Class .
+
+imel:AIMNaamObject a owl:Class ;
+    rdfs:subClassOf imel:AIMObject .
+
+imel:DirectioneleRelatie a owl:Class ;
+    rdfs:subClassOf imel:RelatieObject .
+
