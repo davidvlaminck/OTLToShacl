@@ -1,0 +1,43 @@
+[
+    {
+        "toestand": "in-gebruik",
+        "assetId": {
+            "identificator": "BORD_1"
+        },
+        "naam": "A01.1",
+        "afmeting": {
+            "vierhoekig": {
+                "breedte": 1000.0,
+                "hoogte": 1500.0
+            }
+        },
+        "ipAdres": "11.111.111.11",
+        "typeURI": "https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#DynBordRSS"
+    },
+    {
+        "toestand": "in-gebruik",
+        "assetId": {
+            "identificator": "OMV_1"
+        },
+        "typeURI": "https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#Omvormer"
+    },
+    {
+        "bron": {
+            "typeURI": "https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#DynBordRSS"
+        },
+        "doel": {
+            "typeURI": "https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#Omvormer"
+        },
+        "assetId": {
+            "identificator": "Sturing_-_BORD_1_-_OMV_1",
+            "toegekendDoor": "OTLMOW"
+        },
+        "bronAssetId": {
+            "identificator": "BORD_1"
+        },
+        "doelAssetId": {
+            "identificator": "OMV_1"
+        },
+        "typeURI": "https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#Sturing"
+    }
+]
